@@ -3,6 +3,7 @@ import { Tajawal, Amiri, Amiri_Quran } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/shared/theme-provider";
+import { ServiceWorkerRegister } from "@/components/shared/sw-register";
 
 // خطوط عربية مرخصة (OFL) — تُستضاف محليًا تلقائيًا
 const tajawal = Tajawal({
@@ -62,6 +63,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <Toaster position="top-center" richColors dir="rtl" />
+          <ServiceWorkerRegister />
         </ThemeProvider>
       </body>
     </html>
