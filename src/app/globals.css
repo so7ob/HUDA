@@ -1,0 +1,340 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   «نور الهدى» — Design Tokens المركزية
+   الألوان قابلة للتعديل من هنا فقط (مصدر وحيد للحقيقة)
+   ============================================================ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-ui);
+  --font-quran: var(--font-quran);
+  --font-book: var(--font-book);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* ألوان نور الهدى المخصصة */
+  --color-teal-brand: var(--huda-teal);
+  --color-teal-dark: var(--huda-teal-dark);
+  --color-teal-deep: var(--huda-teal-deep);
+  --color-teal-soft: var(--huda-teal-soft);
+  --color-reading: var(--huda-reading);
+  --color-card-bg: var(--huda-card);
+  --color-cream: var(--huda-cream);
+  --color-cream-deep: var(--huda-cream-deep);
+  --color-gold: var(--huda-gold);
+  --color-gold-deep: var(--huda-gold-deep);
+  --color-ink: var(--huda-text);
+}
+
+:root {
+  --radius: 1.25rem;
+
+  /* ✦ الهوية الأساسية — فيروزي مع تعديل لطيف للأزرق إلى التركواز ✦ */
+  --huda-teal: #329B9C;
+  --huda-teal-dark: #247E83;
+  --huda-teal-deep: #175A5E;
+  --huda-teal-soft: #D6F0EF;
+  --huda-reading: #EBFBFA;
+  --huda-card: #F1F1F1;
+  --huda-cream: #E9EEE2;
+  --huda-cream-deep: #DDE4CE;
+  --huda-gold: #B9995F;
+  --huda-gold-deep: #96793F;
+  --huda-text: #283333;
+
+  /* shadcn mapping — متوافق مع الهوية */
+  --background: #F8FDFC;
+  --foreground: #283333;
+  --card: #ffffff;
+  --card-foreground: #283333;
+  --popover: #ffffff;
+  --popover-foreground: #283333;
+  --primary: #329B9C;
+  --primary-foreground: #ffffff;
+  --secondary: #E3F1F0;
+  --secondary-foreground: #247E83;
+  --muted: #F1F5F4;
+  --muted-foreground: #5E7473;
+  --accent: #D6F0EF;
+  --accent-foreground: #175A5E;
+  --destructive: #C2543F;
+  --border: #DFEDEB;
+  --input: #DFEDEB;
+  --ring: #329B9C;
+  --chart-1: #329B9C;
+  --chart-2: #B9995F;
+  --chart-3: #247E83;
+  --chart-4: #E9EEE2;
+  --chart-5: #175A5E;
+  --sidebar: #F8FDFC;
+  --sidebar-foreground: #283333;
+  --sidebar-primary: #329B9C;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #D6F0EF;
+  --sidebar-accent-foreground: #175A5E;
+  --sidebar-border: #DFEDEB;
+  --sidebar-ring: #329B9C;
+}
+
+/* الوضع الليلي — ليل القراءة الهادئ */
+.dark {
+  --huda-teal: #4FB3B4;
+  --huda-teal-dark: #358A8E;
+  --huda-teal-deep: #10393C;
+  --huda-teal-soft: #1B3B3D;
+  --huda-reading: #122728;
+  --huda-card: #1A3334;
+  --huda-cream: #22302B;
+  --huda-cream-deep: #2A3833;
+  --huda-gold: #CBAE74;
+  --huda-gold-deep: #A98C51;
+  --huda-text: #DCE8E7;
+
+  --background: #0E1E1F;
+  --foreground: #DCE8E7;
+  --card: #152B2C;
+  --card-foreground: #DCE8E7;
+  --popover: #152B2C;
+  --popover-foreground: #DCE8E7;
+  --primary: #4FB3B4;
+  --primary-foreground: #062021;
+  --secondary: #1B3B3D;
+  --secondary-foreground: #A7D6D5;
+  --muted: #1A3334;
+  --muted-foreground: #8AA6A4;
+  --accent: #1B3B3D;
+  --accent-foreground: #A7D6D5;
+  --destructive: #D97B66;
+  --border: #234547;
+  --input: #234547;
+  --ring: #4FB3B4;
+  --sidebar: #0E1E1F;
+  --sidebar-foreground: #DCE8E7;
+  --sidebar-primary: #4FB3B4;
+  --sidebar-primary-foreground: #062021;
+  --sidebar-accent: #1B3B3D;
+  --sidebar-accent-foreground: #A7D6D5;
+  --sidebar-border: #234547;
+  --sidebar-ring: #4FB3B4;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    direction: rtl;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-ui), "Tajawal", system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 0;
+  }
+  /* أرقام لاتينية/عربية متناسقة */
+  :dir(rtl) {
+    unicode-bidi: plaintext;
+  }
+}
+
+/* ============================================================
+   أدوات خاصة بقراءة القرآن والمحتوى
+   ============================================================ */
+
+/* خط المصحف العثماني المعتمد (مجمع الملك فهد) — لنص الآيات في وضع القائمة
+   ورؤوس السور — المصدر: أصول تطبيق «هدى» المرخصة */
+@font-face {
+  font-family: "UthmanicHafs";
+  src: url("/fonts/UthmanicHafs.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* خط واجهة عربي إضافي (من أصول «هدى») للعناوين القرآنية */
+@font-face {
+  font-family: "ElMessiri";
+  src: url("/fonts/ElMessiri/ElMessiri-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ElMessiri";
+  src: url("/fonts/ElMessiri/ElMessiri-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ElMessiri";
+  src: url("/fonts/ElMessiri/ElMessiri-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-quran {
+  font-family: "UthmanicHafs", var(--font-quran), "Amiri Quran", "Scheherazade New", serif;
+}
+.font-book {
+  font-family: var(--font-book), "Amiri", serif;
+}
+.font-ui {
+  font-family: var(--font-ui), "Tajawal", system-ui, sans-serif;
+}
+
+/* خلفية القراءة المتدرجة */
+.bg-reading-gradient {
+  background: linear-gradient(180deg, var(--huda-reading) 0%, color-mix(in srgb, var(--huda-reading) 72%, #ffffff) 100%);
+}
+.dark .bg-reading-gradient {
+  background: linear-gradient(180deg, var(--huda-reading) 0%, color-mix(in srgb, var(--huda-reading) 80%, #000000) 100%);
+}
+
+/* تدرج الترويسة الفيروزي */
+.bg-header-gradient {
+  background: linear-gradient(160deg, var(--huda-teal) 0%, var(--huda-teal-dark) 62%, var(--huda-teal-deep) 100%);
+  position: relative;
+}
+
+/* نقش زخرفي فائق الترويسة — من أصول «هدى الله» (pattern-dark.png) */
+.header-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/huda/pattern-dark.png");
+  background-size: 260px;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* بطاقة الغلاف الفيروزي (كما في البطاقات المرجعية) */
+.bg-cover-gradient {
+  background: linear-gradient(165deg, color-mix(in srgb, var(--huda-teal) 88%, #ffffff) 0%, var(--huda-teal) 45%, var(--huda-teal-deep) 100%);
+}
+.bg-cover-gradient.sand {
+  background: linear-gradient(165deg, #CBB98A 0%, var(--huda-gold) 45%, var(--huda-gold-deep) 100%);
+}
+.bg-cover-gradient.night {
+  background: linear-gradient(165deg, #33464A 0%, #22363A 45%, #13292C 100%);
+}
+
+/* التمرير المخفي الأنيق */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* شريط تمرير مخصص أنيق */
+.nice-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.nice-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nice-scrollbar::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--huda-teal) 35%, transparent);
+  border-radius: 999px;
+}
+
+/* نص الآيات: تحسين الرسم والتباعد */
+.ayah-text {
+  line-height: 2.15;
+  letter-spacing: 0;
+  word-spacing: 0.06em;
+}
+
+/* إبراز مواضع البحث */
+mark.search-hit {
+  background: color-mix(in srgb, var(--huda-gold) 32%, transparent);
+  color: inherit;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+/* إطار زخرفي لاسم السورة */
+.surah-frame {
+  position: relative;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--huda-cream) 85%, #ffffff), var(--huda-cream));
+  border: 1.5px solid color-mix(in srgb, var(--huda-gold) 55%, transparent);
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgb(40 51 51 / 6%);
+}
+.dark .surah-frame {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--huda-cream) 90%, #ffffff) -40%, var(--huda-cream) 60%);
+  box-shadow: 0 2px 14px rgb(0 0 0 / 30%);
+}
+
+/* ظل بطاقة ناعم */
+.card-soft {
+  box-shadow: 0 4px 18px -6px rgb(23 90 94 / 14%);
+}
+
+/* الحركة الهادئة */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-fade-up {
+  animation: fade-up 0.35s ease both;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.anim-pulse-soft {
+  animation: gentle-pulse 1.6s ease-in-out infinite;
+}
+
+/* منع التمرير الأفقي في الجذر */
+html, body {
+  overflow-x: clip;
+}
+
+/* أزرار بحجم لمس مناسب (44px+) */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
