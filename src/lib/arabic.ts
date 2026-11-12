@@ -17,6 +17,10 @@ export function stripUthmaniMarks(text: string): string {
 /** تطبيع شامل: همزات، تاء مربوطة، ألف، ياء */
 export function normalizeArabic(text: string): string {
   let t = text;
+  /* P0-AUDIT (بحث): الألف الخنجرية U+0670 في الرسم العثماني تمثل ألفًا حقيقية محذوفة من الخط
+     (مثل «عَـٰلَمِينَ»). حذفها كان يجعل الكلمات المكتوبة عاديًا («عالمين») لا تطابق نص المصحف.
+   * التحويل إلى ألف يجعل الطرفين يتطابقان. تُطبَّق على المطابقة فقط — النص الأصلي لا يُعدَّل. */
+  t = t.replace(/\u0670/g, "ا");
   t = stripTashkeel(t);
   t = stripUthmaniMarks(t);
   // توحيد الهمزات
@@ -38,6 +42,21 @@ export interface SearchTokens {
   raw: string;
   normalized: string;
   isPhrase: boolean;
+}
+
+/* P0-AUDIT (بحث): مطابقة متسامحة مع الألف — تُستخدم كمرحلة ثانية بعد المطابقة التامة.
+ * تحلّ تعارض الألف الخنجرية بين الرسمين: «عَـٰلَمِينَ» المصحفية تُطابق «عالمين»،
+ * و«إِلَٰهٌ» تُطابق «إله» (لا إله إلا الله). تُطبَّق على المطابقة فقط. */
+export function alefFlexible(norm: string): string {
+  return norm.replace(/\u0627/g, "");
+}
+
+/** مطابقة عربية: تامة أولًا ثم متسامحة مع الألف */
+export function arabicMatch(hayNorm: string, qNorm: string): boolean {
+  if (hayNorm.includes(qNorm)) return true;
+  const qFlex = alefFlexible(qNorm);
+  if (!qFlex) return false;
+  return alefFlexible(hayNorm).includes(qFlex);
 }
 
 export function parseQuery(q: string): SearchTokens {

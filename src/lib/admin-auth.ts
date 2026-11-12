@@ -96,7 +96,10 @@ export function attachSessionCookie(res: NextResponse, token: string): NextRespo
     sameSite: "lax",
     path: "/",
     maxAge: SESSION_DAYS * 24 * 60 * 60,
-    secure: false, // بيئة النشر الحالية http — عند النشر خلف Nginx/HTTPS اجعلها true
+    /* P0-AUDIT: الكوكي الآمن (secure) يُفعَّل تلقائيًا في الإنتاج،
+       ويُعطَّل صراحةً فقط عبر COOKIE_SECURE=0 للنشر عبر http محليًا. */
+    secure:
+      process.env.NODE_ENV === "production" && process.env.COOKIE_SECURE !== "0",
   });
   return res;
 }
@@ -126,4 +129,16 @@ export async function ensureBootstrap(
   const { hash, salt } = hashPassword(password);
   await db.adminUser.update({ where: { id: user.id }, data: { passwordHash: hash, salt } });
   return true;
+}
+
+/**
+ * P0-AUDIT: كشف بقاء كلمة المرور الافتراضية الموثقة (admin123).
+ * تُستخدم لعرض تنبيه إلزامي بتغييرها من لوحة الإدارة — دون أي تسريب في الـ API العام.
+ */
+export async function isDefaultPassword(user: {
+  passwordHash: string | null;
+  salt: string | null;
+}): Promise<boolean> {
+  if (!user.passwordHash || !user.salt) return true; // لم تُضبط بعد = الافتراضية سارية
+  return verifyPassword(BOOTSTRAP_PASSWORD, user.salt, user.passwordHash);
 }

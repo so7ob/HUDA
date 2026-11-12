@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { normalizeArabic, parseQuery } from "@/lib/arabic";
+import { arabicMatch, normalizeArabic, parseQuery } from "@/lib/arabic";
 
 export const dynamic = "force-dynamic";
 
@@ -46,13 +46,13 @@ export async function GET(req: NextRequest) {
   const surahs = await db.quranSurah.findMany();
   for (const s of surahs) {
     const hay = `${s.name} ${s.nameFull} ${s.aliases ?? ""}`;
-    if (normalizeArabic(hay).includes(qNorm)) {
+    if (arabicMatch(normalizeArabic(hay), qNorm)) {
       const matchedAlias =
-        !normalizeArabic(s.name).includes(qNorm) && !normalizeArabic(s.nameFull).includes(qNorm)
+        !arabicMatch(normalizeArabic(s.name), qNorm) && !arabicMatch(normalizeArabic(s.nameFull), qNorm)
           ? (s.aliases ?? "")
               .split("،")
               .map((a) => a.trim())
-              .find((a) => normalizeArabic(a).includes(qNorm))
+              .find((a) => arabicMatch(normalizeArabic(a), qNorm))
           : undefined;
       results.push({
         kind: "surah",
@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
   for (const a of ayahs) {
     if (ayahHits >= 60) break;
     const norm = normalizeArabic(a.text);
-    if (norm.includes(qNorm)) {
+    if (arabicMatch(norm, qNorm)) {
       results.push({
         kind: "ayah",
         title: `سورة ${surahMap.get(a.surah)} — آية ${arNum(a.numberInSurah)}`,
@@ -96,7 +96,7 @@ export async function GET(req: NextRequest) {
     let tHits = 0;
     for (const t of tafsirRows) {
       if (tHits >= 25) break;
-      if (normalizeArabic(t.text).includes(qNorm)) {
+      if (arabicMatch(normalizeArabic(t.text), qNorm)) {
         const a = idToRef.get(t.ayahId);
         if (a) {
           results.push({
@@ -117,7 +117,7 @@ export async function GET(req: NextRequest) {
   const books = await db.book.findMany({ where: { status: "published" } });
   for (const b of books) {
     if (results.filter((r) => r.kind === "book").length >= 15) break;
-    if (normalizeArabic(`${b.title} ${b.author ?? ""} ${b.description ?? ""}`).includes(qNorm)) {
+    if (arabicMatch(normalizeArabic(`${b.title} ${b.author ?? ""} ${b.description ?? ""}`), qNorm)) {
       results.push({
         kind: "book",
         title: b.title,
@@ -134,7 +134,7 @@ export async function GET(req: NextRequest) {
   for (const c of chapters) {
     if (results.filter((r) => r.kind === "chapter").length >= 15) break;
     if (c.book.status !== "published") continue;
-    if (normalizeArabic(`${c.title} ${c.content}`).includes(qNorm)) {
+    if (arabicMatch(normalizeArabic(`${c.title} ${c.content}`), qNorm)) {
       results.push({
         kind: "chapter",
         title: c.title,
@@ -148,7 +148,7 @@ export async function GET(req: NextRequest) {
   // 5) المواضيع
   const topics = await db.quranTopic.findMany({ where: { isPublished: true } });
   for (const t of topics) {
-    if (normalizeArabic(`${t.title} ${t.description ?? ""}`).includes(qNorm)) {
+    if (arabicMatch(normalizeArabic(`${t.title} ${t.description ?? ""}`), qNorm)) {
       results.push({ kind: "topic", title: `الموضوع: ${t.title}`, snippet: t.description ?? "", ref: `topic:${t.id}` });
     }
   }

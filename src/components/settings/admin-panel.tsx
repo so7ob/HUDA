@@ -2436,6 +2436,17 @@ export function AdminPanelScreen({ onClose }: { onClose: () => void }) {
         <AdminLoginScreen onSuccess={() => setTab("overview")} />
       ) : (
         <main className="max-w-lg mx-auto px-4 py-4 pb-28">
+          {session?.defaultPassword && (
+            <div
+              role="alert"
+              className="mb-4 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-[13px] text-amber-900 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-200"
+            >
+              <p className="font-bold">كلمة المرور الافتراضية ما زالت سارية</p>
+              <p className="mt-0.5 leading-relaxed">
+                لأمان المحتوى، غيّر كلمة المرور فورًا: افتح قائمة الحساب أعلى الشاشة ← «تغيير كلمة المرور».
+              </p>
+            </div>
+          )}
           <Tabs value={tab} onValueChange={setTab}>
             <TabsList className="w-full grid grid-cols-4 h-auto rounded-2xl p-1 bg-secondary gap-0.5">
               {TABS.map((t) => (
