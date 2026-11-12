@@ -274,7 +274,8 @@ export const api = {
   downloads: () => get<{ downloads: { id: string; reciterId: string; reciterName: string; surah: number; surahName: string; ayahCount: number; sizeBytes: number; status: string }[] }>("/api/downloads"),
   addDownload: (reciterId: string, reciterName: string, surah: number, surahName: string, ayahCount: number, sizeBytes: number) =>
     post<{ ok: boolean }>("/api/downloads", { reciterId, reciterName, surah, surahName, ayahCount, sizeBytes }),
-  removeDownload: (id: string) => del<{ ok: boolean }>(`/api/downloads?id=${id}`),
+  removeDownload: (id: string) => del<{ ok: boolean }>(`/api/downloads/delete?id=${encodeURIComponent(id)}`),
+  clearDownloads: () => del<{ ok: boolean; deleted?: number }>("/api/downloads/delete?all=1"),
 
   /* الإعدادات */
   getSettings: () => get<{ settings: Record<string, unknown> }>("/api/settings"),

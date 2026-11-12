@@ -107,6 +107,7 @@
 `next-env.d.ts` في وضع dev يستورد `.next/dev/types/routes.d.ts` — لذلك يبقى مستثنى من git، وترتيب CI: **build أولاً** (يُجري فحص TS الكامل بعد إزالة ignoreBuildErrors ويولّد الأنواع) ثم `tsc --noEmit` للتحقق المزدوج.
 
 ### الإثبات
+- مزامنة ما بعد الإصدار: **PR #18** (chore/sync-develop-v0.3.0 من develop، دمج origin/main) — quality-gates ✓ — مدمج → **develop = `1ce6d68`** (الإصدار 0.3.0 على develop)
 - CI على PR الترحيل: lint + 22 اختبار + build standalone + tsc — [يُستكمل رقم PR ونتيجة CI بعد التشغيل والدمج]
 
 ### الدمج والنتائج الفعلية (الدورة 3 — تكملة)
@@ -116,3 +117,35 @@
 - **حماية الفروع مؤكدة** (GET protection): main يطلب [`release-gates`,`version-check`]، develop يطلب [`quality-gates`]، strict up-to-date، enforce_admins، منع force push ومنع الحذف، 0 موافقات (مستودع مطور واحد)
 - Release PR: **#16** (رابط: https://github.com/so7ob/HUDA/pull/16) — bump `0.2.1 → 0.3.0` + سجلات نهائية — الإصدار: https://github.com/so7ob/HUDA/releases/tag/v0.3.0
 - Staging/Production: workflows جاهزة؛ النشر غير مفعّل بغياب خادم/أسرار — الحالة موثقة بصدق في `production-gate-status` و`staging-build`
+
+---
+
+## الدورة 4 — Issue #9: تنزيل التلاوات فعليًا والتشغيل دون شبكة
+
+**الفرع:** `feature/audio-downloads` (من أحدث origin/develop بعد PR مزامنة #18) — **PR: https://github.com/so7ob/HUDA/pull/19**
+
+### ما نُفّذ فعليًا
+
+| الملف | التغيير |
+|---|---|
+| `src/lib/audio-store.ts` (جديد) | مخزن الصوت المحلي IndexedDB (`noor-alhuda-audio`/`ayahs`): Blob لكل آية بمفتاح `{reciterId}:{ayahId}`، خرائط الآيات العالمية، بناء الروابط، قراءة blob: للتشغيل، حذف فردي/كلي، تقدير التخزين، ومنسّق تنزيل بconcurrency=4 مع تقدم وإلغاء واستئناف ناقص (منفذ تخزين قابل للحقن للاختبارات) |
+| `src/app/api/audio/[ayahId]/route.ts` (جديد) | Proxy داخلي بنفس الأصل لملفات MP3 — **ضروري لأن cdn.islamic.network لا يرسل ترويسات CORS** (مؤكد بالقياس: GET بلا ACAO وOPTIONS=403) — تمرير مباشر بلا تخزين خادمي + `Cache-Control` طويل |
+| `src/components/player/audio-engine.tsx` | يقرأ من المخزن المحلي أولًا: الآية المنزّلة تُشغَّل من `blob:` حتى مع وجود الشبكة؛ وإلا قالب المقرئ عبر الشبكة (السلوك السابق محفوظ). إدارة دورة حياة blob URLs (revoke) + منع سباقات تغيّر الحالة + خطاف فحص dev-only `window.__hudaAudio` |
+| `src/components/player/player-sheet.tsx` | التنزيل الفعلي مع شريط تقدم (done/total) وزر إلغاء؛ شارة «منزّلة — متاحة دون إنترنت» **بشرط التغطية المحلية الكاملة لا السجل فقط**؛ كشف سجلات الدورة الوهمية القديمة («إكمال تنزيل — ملفات ناقصة»)؛ الحجم المسجل حقيقي (مجموع بايتات الملفات) |
+| `src/components/settings/downloads-screen.tsx` | إدارة حقيقية: عدد الملفات المحلية لكل سجل («٧ ملف محليًا · كاملة» / «سجل قديم بلا ملفات»)، الحجم الحقيقي، بطاقة استهلاك تخزين المتصفح (usage/quota)، حذف فردي (سجل + ملفات الآيات)، حذف الكل بتأكيد خطوتين |
+| `src/app/api/downloads/delete/route.ts` | دعم `?all=1` (deleteMany) + تفادي 500 عند حذف سجل مفقود |
+| `src/lib/api.ts` | `clearDownloads` + **إصلاح خلل سابق**: `removeDownload` كان يستدعي `DELETE /api/downloads` بلا معالج DELETE (405) — صُحّح إلى `/api/downloads/delete?id=` |
+| `src/app/globals.css` | **إصلاح خلل مرافق مكتشف بالفحص البصري**: `position: relative` خام داخل `.bg-header-gradient` كان يتغلب على utilities فيلغي `fixed`/`sticky` — زر التلاوة العائم كان خارج الشاشة فعليًا والترويسات اللاصقة لا تلتصق. نُقل الربط إلى `.header-pattern:not(.sticky):not(.fixed)` |
+| `tests/unit/audio-store.test.ts` (جديد) | 25 اختبار: مفاتيح/تحليل، خرائط الآيات، روابط القوالب والproxy، منسّق التنزيل (نجاح كامل، فشل جزئي، skipExisting، إلغاء، حد concurrency، قائمة فارغة) عبر تخزين ذاكرة |
+
+### الإثبات (متصفح فعلي — agent-browser على بيئة المعاينة)
+- CI الدورة: **quality-gates** أخضر على GitHub (lint + bun test 37 + build standalone + tsc) — [رابط التشغيل يُسجل بعد الدمج]
+- **التنزيل الفعلي:** 7 آيات → IndexedDB: 7 Blobs بمفاتيح `ar.alafasy:1..7`، مجموع **796,680 بايت** = السجل الخادمي بالبايت = حجم ملف CDN بالبايت (146,830 للآية الأولى)
+- **شرط القبول (دون شبكة):** `set offline on` ثم تشغيل السورة من بدايتها — `navigator.onLine=false`، المصدر `blob:` طوال التشغيل، التقدم آية ١→٧ كاملًا، **صفر طلبات جديدة لـ CDN في سجل الشبكة طوال النافذة**
+- المخزن أولًا حتى online: بعد التنزيل يبدأ التشغيل من `blob:` مباشرة؛ بعد الحذف يعود إلى CDN
+- إدارة التنزيلات: «٧ ملف محليًا · 0.8 م.ب · كاملة» + بطاقة تخزين المتصفح (0.8 م.ب من الحصة) + حذف الكل بتأكيد → IndexedDB=0 وسجلات=[] وإعادة تنزيل نظيف كامل
+- الـ proxy: آية صالحة = MP3 حقيقي 200، آية غير صالحة = 400 عربي، مقرئ افتراضي يعمل
+
+### حدود موثقة بصدق
+- قائمة التنزيلات في الشاشة سجل خادمي — دون شبكة تعرض حالة الفراغ (ملفات الـ Blob محلية لكن الإدارة تحتاج الشبكة) — تحسين مستقبلي: تخزين مؤقت للقائمة
+- إثبات «دون شبكة» عبر محاكاة offline في المتصفح الآلي — يُستحسن اختبار يدوي على جهاز حقيقي

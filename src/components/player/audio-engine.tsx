@@ -11,17 +11,20 @@
  * - تكرار الآية أو نطاق آيات
  * - سرعة التشغيل
  * - تحديث حالة المتجر لعرض التظليل والمشغل المصغّر
+ * - المخزن المحلي أولًا (Issue #9): الآيات المنزّلة تُشغَّل من
+ *   IndexedDB عبر blob: — تعمل دون أي شبكة.
  */
 import { useEffect, useRef } from "react";
 import { useAppStore } from "@/lib/store";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { getPlaybackUrl, DEFAULT_AUDIO_TEMPLATE } from "@/lib/audio-store";
 import { toast } from "sonner";
 
 export function AudioEngine() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const repeatLeftRef = useRef(0);
-  const queryClient = useQueryClient();
+  const blobUrlRef = useRef<string | null>(null);
 
   const { data: recitersData } = useQuery({ queryKey: ["reciters"], queryFn: api.reciters, staleTime: Infinity });
   const { data: surahsData } = useQuery({ queryKey: ["surahs"], queryFn: api.surahs, staleTime: Infinity });
@@ -49,9 +52,21 @@ export function AudioEngine() {
     const audio = new Audio();
     audio.preload = "auto";
     audioRef.current = audio;
+    // خطاف فحص للبيئة التطويرية فقط (فحوص المتصفح الآلية) — يكشف عنصر الصوت
+    // لأنه غير مُلحق بالـ DOM، ولا يُشغَّل في الإنتاج.
+    if (process.env.NODE_ENV !== "production") {
+      (window as unknown as { __hudaAudio?: HTMLAudioElement }).__hudaAudio = audio;
+    }
     return () => {
       audio.pause();
       audio.src = "";
+      if (blobUrlRef.current) {
+        URL.revokeObjectURL(blobUrlRef.current);
+        blobUrlRef.current = null;
+      }
+      if (process.env.NODE_ENV !== "production") {
+        delete (window as unknown as { __hudaAudio?: HTMLAudioElement }).__hudaAudio;
+      }
     };
   }, []);
 
@@ -60,7 +75,7 @@ export function AudioEngine() {
     if (audioRef.current) audioRef.current.playbackRate = player.speed;
   }, [player.speed]);
 
-  // تحميل وتشغيل الآية عند تغيير الحالة
+  // تحميل وتشغيل الآية عند تغيير الحالة — المخزن المحلي أولًا ثم الشبكة
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -68,20 +83,46 @@ export function AudioEngine() {
       audio.pause();
       return;
     }
-    const tpl = templates.get(player.reciterId) ?? "https://cdn.islamic.network/quran/audio/128/ar.alafasy/{ayah}.mp3";
-    // دعم العنصرين النائبين {ayah} و {ayahId} — كلاهما الرقم العالمي للآية
-    const url = tpl.replace("{ayahId}", String(player.ayahId)).replace("{ayah}", String(player.ayahId));
-    const fullUrl = url.startsWith("http") ? url : url;
-    if (audio.src !== fullUrl) {
-      audio.src = fullUrl;
-    }
-    audio.playbackRate = player.speed;
-    audio.play().catch(() => {
-      // قد يرفض المتصفح التشغيل التلقائي — نوقف الحالة
-      setPlayer({ playing: false });
-      toast.error("تعذر تشغيل الصوت — جرّب مجددًا");
-    });
-    void queryClient;
+    // الالتقاط المبكر لمنع سباقات تغيّر الحالة أثناء قراءة المخزن غير المتزامنة
+    const ayahId = player.ayahId;
+    const reciterId = player.reciterId;
+    let cancelled = false;
+
+    void (async () => {
+      // 1) المخزن المحلي أولاً — السور المنزّلة تعمل دون شبكة (Issue #9)
+      const localUrl = await getPlaybackUrl(reciterId, ayahId);
+      if (cancelled) {
+        if (localUrl) URL.revokeObjectURL(localUrl);
+        return;
+      }
+      // 2) الشبكة عبر قالب المقرئ (سلوك سابق محفوظ)
+      const tpl = templates.get(reciterId) ?? DEFAULT_AUDIO_TEMPLATE;
+      // دعم العنصرين النائبين {ayah} و {ayahId} — كلاهما الرقم العالمي للآية
+      const networkUrl = tpl
+        .replace("{ayahId}", String(ayahId))
+        .replace("{ayah}", String(ayahId));
+
+      if (localUrl) {
+        if (blobUrlRef.current && blobUrlRef.current !== localUrl) {
+          URL.revokeObjectURL(blobUrlRef.current);
+        }
+        blobUrlRef.current = localUrl;
+      }
+      const fullUrl = localUrl ?? networkUrl;
+      if (audio.src !== fullUrl) {
+        audio.src = fullUrl;
+      }
+      audio.playbackRate = player.speed;
+      audio.play().catch(() => {
+        // قد يرفض المتصفح التشغيل التلقائي — نوقف الحالة
+        setPlayer({ playing: false });
+        toast.error("تعذر تشغيل الصوت — جرّب مجددًا");
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [player.playing, player.ayahId, player.reciterId]);
 
   // معالجة انتهاء الآية
