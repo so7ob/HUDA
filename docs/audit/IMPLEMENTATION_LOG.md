@@ -71,3 +71,40 @@
 
 ### الدمج
 - PR #13 مدمج في huda-web-app (9b8854d) — القضية #8 أُغلقت بالأدلة
+
+## الدورة 3 — إعادة هيكلة المستودع: ترحيل huda-web-app إلى main + دورة تطوير وإصدار
+
+### الحالة المؤكدة من origin قبل أي تغيير (أوامر fetch/merge-base/ls-remote)
+- `main` القديم = `72af83b` (5 ملفات مرجعية: README، assets.zip، main_db@2.zip، mushaf_.zip، res.zip)
+- `huda-web-app` = `dd1dca0` (التطبيق الحديث كامل) — و`dev/audit-p0` و`dev/offline-pwa` **مدمجتان فيه بالكامل** (تحقق `git merge-base --is-ancestor`)
+- `save` = `main` القديم تماماً (نفس SHA: 72af83b) — لا عمل غير مدمج
+- **لا سلف مشترك** بين main وhuda-web-app (فشل merge-base → تواريخ غير مرتبطة)
+- لا PRs مفتوحة، Actions مفعّلة، لا Tags، التوكن بصلاحية admin
+
+### النسخ الاحتياطي (قبل الترحيل)
+- `archive/main-before-migration` = `72af83b` — دُفع وتحقق عبر GitHub API
+- `archive/huda-before-migration` = `dd1dca0` — دُفع وتحقق عبر GitHub API
+
+### الترحيل الاستثنائي (unrelated histories)
+- فرع `integration/bootstrap-main` من `origin/main` ثم دمج `origin/huda-web-app` بـ `--allow-unrelated-histories`
+- تعارض وحيد README.md (add/add): **README الحديث أساس** + أرشفة القديم في `docs/legacy/README-old-main.md`
+- **commit الدمج: `292794c`** (الأبوين: `72af83b` + `dd1dca0`) — بدون force push، تاريخ الطرفين محفوظ كاملاً
+- الأرشيفات المرجعية الأربعة بقيت في مساراتها الأصلية (فحص اعتماديات: docs تشير إليها بالاسم فقط كمصدر)
+
+### إضافات بنية التشغيل (نفس فرع الترحيل)
+| الملف | الوظيفة |
+|---|---|
+| `.github/workflows/ci.yml` | بوابات جودة: install مجمد + prisma + lint + bun test + build + tsc على PRs→develop والدفع إلى develop/main |
+| `.github/workflows/staging.yml` | بناء artifact قابل للنشر عند الدفع إلى develop + نشر مشروط بمتغير `STAGING_DEPLOY_ENABLED` |
+| `.github/workflows/release.yml` | بوابات إصدار + فحص ترقيم SemVer على PRs→main + artifact عند Tag v* |
+| `.github/workflows/production.yml` | نشر إنتاجي مشروط بمتغير `PRODUCTION_DEPLOY_ENABLED` + بوابة أن الـ Tag من تاريخ main |
+| `scripts/deploy/deploy.sh` | نشر SSH: مجلد إصدارات + تبديل symlink ذري + نسخة SQLite متسقة قبل النشر + فحص صحة + rollback تلقائي |
+| `scripts/deploy/huda-web.service` | قالب systemd (huda@staging / huda@production)، قاعدة البيانات خارج شجرة الإصدار |
+| `scripts/deploy/nginx-huda.conf` | قالب reverse proxy + HTTPS (Let's Encrypt) |
+| `src/app/api/health/route.ts` | نقطة فحص صحة للنشر الآلي (`/api/health`) |
+
+### ملاحظة CI جوهرية
+`next-env.d.ts` في وضع dev يستورد `.next/dev/types/routes.d.ts` — لذلك يبقى مستثنى من git، وترتيب CI: **build أولاً** (يُجري فحص TS الكامل بعد إزالة ignoreBuildErrors ويولّد الأنواع) ثم `tsc --noEmit` للتحقق المزدوج.
+
+### الإثبات
+- CI على PR الترحيل: lint + 22 اختبار + build standalone + tsc — [يُستكمل رقم PR ونتيجة CI بعد التشغيل والدمج]

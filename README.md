@@ -92,6 +92,26 @@ docs/                             # الأدلة والتقارير
 - بيانات المستخدم الشخصية محلية افتراضيًا؛ لا تتبع ولا إعلانات ولا حسابات إجبارية.
 - التفاصيل الكاملة: [`docs/data-sources.md`](docs/data-sources.md)
 
+## هيكل المستودع ودورة التطوير
+
+يتبع المستودع نموذج فروع قائم على Pull Request مع فصل صريح بين التكامل والإنتاج:
+
+| الفرع | الدور |
+|---|---|
+| `main` | **الإنتاج** — آخر إصدار مستقر ومعتمد فقط؛ النشر الإنتاجي منه حصرياً بعد Tag |
+| `develop` | **التكامل** — أحدث التغييرات المدمجة والمختبرة تكاملياً |
+| `feature/*` `fix/*` `refactor/*` `perf/*` `test/*` `chore/*` | فروع عمل تنشأ من `develop` وتعود إليه عبر PR |
+| `hotfix/*` | إصلاح إنتاجي حرج من `main`، يُعاد دمجه في `develop` دائماً |
+| `archive/*` | نسخ محفوظة قبل الترحيلات الكبرى — لا تُحذف |
+
+**الدورة:** Issue ← فرع من `develop` ← تنفيذ ← اختبارات ← PR ← CI أخضر ← دمج في `develop` ← Staging ← Release PR (ترقيم SemVer) ← `main` ← Tag + GitHub Release ← النشر الإنتاجي.
+
+**فحوص إلزامية عبر GitHub Actions** (`.github/workflows/`): lint + typecheck + bun test + بناء standalone. البناء الحقيقي (`bun run build`) يُنفَّذ في CI، وبيئة المعاينة المحلية تعمل بوضع dev فقط.
+
+**الأرشيفات المرجعية** في جذر المستودع (`assets.zip`, `main_db@2.zip`, `mushaf_.zip`, `res.zip`) هي مصادر البيانات الأصلية الموثقة في [`docs/data-sources.md`](docs/data-sources.md) — لا يعتمد عليها البناء وقت التشغيل؛ الأصول المستخرجة تعيش في `public/` و`db/`، والقديم محفوظ في `docs/legacy/`.
+
+التفاصيل: [`docs/development/BRANCHING_STRATEGY.md`](docs/development/BRANCHING_STRATEGY.md) · [`docs/development/WORKFLOW.md`](docs/development/WORKFLOW.md) · [`docs/deployment/RELEASE_PROCESS.md`](docs/deployment/RELEASE_PROCESS.md) · [`docs/deployment/DEPLOYMENT_GUIDE.md`](docs/deployment/DEPLOYMENT_GUIDE.md)
+
 ## الوثائق
 | الملف | المحتوى |
 |---|---|

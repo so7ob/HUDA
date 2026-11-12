@@ -1,0 +1,122 @@
+name: Release
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    tags: ["v*"]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-gates:
+    name: release-gates
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./db/custom.db
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Prisma validate
+        run: bunx prisma validate
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Unit tests (bun test)
+        run: bun test
+
+      # Full TS check happens inside next build (no ignoreBuildErrors);
+      # tsc --noEmit afterwards validates over the generated .next/types.
+      - name: Production build (standalone, includes full TS check)
+        run: bun run build
+
+      - name: Typecheck (tsc over generated types)
+        run: bun run typecheck
+
+  version-check:
+    name: version-check
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate SemVer bump against main
+        run: |
+          set -euo pipefail
+          CURRENT=$(jq -r '.version // empty' package.json)
+          if [ -z "$CURRENT" ]; then
+            echo "::error::package.json has no version field"; exit 1
+          fi
+          if git cat-file -e origin/main:package.json 2>/dev/null; then
+            BASE=$(git show origin/main:package.json | jq -r '.version // "0.0.0"')
+          else
+            BASE="0.0.0"
+            echo "No package.json on main yet — treating as initial baseline."
+          fi
+          echo "Base (main): $BASE | This release: $CURRENT"
+          if ! echo "$CURRENT" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Version '$CURRENT' is not valid SemVer (X.Y.Z)"; exit 1
+          fi
+          if [ "$CURRENT" = "$BASE" ]; then
+            echo "::error::Release PR must bump package.json version (SemVer). Base=$BASE Current=$CURRENT"
+            exit 1
+          fi
+          echo "SemVer bump verified: $BASE -> $CURRENT"
+
+  release-artifact:
+    name: release-artifact
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./db/custom.db
+    steps:
+      - name: Checkout (tag)
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Production build (standalone)
+        run: bun run build
+
+      - name: Package release artifact
+        run: |
+          STAGE=$(mktemp -d)
+          cp -r .next/standalone/. "$STAGE"/
+          mkdir -p "$STAGE/prisma"
+          cp prisma/schema.prisma "$STAGE/prisma/"
+          cp -r scripts/deploy "$STAGE/deploy-scripts"
+          tar -czf "huda-${GITHUB_REF_NAME}.tar.gz" -C "$STAGE" .
+          ls -lh "huda-${GITHUB_REF_NAME}.tar.gz"
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: huda-${{ github.ref_name }}
+          path: huda-${{ github.ref_name }}.tar.gz
+          retention-days: 90
