@@ -1,0 +1,360 @@
+// ============================================================
+// «نور الهدى» — تطبيق قرآني وثقافي متكامل
+// مخطط قاعدة البيانات — Prisma / SQLite
+// فصل واضح بين: البيانات المرجعية المعتمدة (Quran*, Tafsir*)
+// وبيانات الاستخدام الشخصية (Favorite, Bookmark, Plans...)
+// وبيانات إدارة المحتوى (Book, Chapter, AuditLog...)
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------------------
+// القرآن الكريم — البيانات المرجعية المعتمدة (لا تُعدَّل من المحرر العام)
+// المصدر: نص عثماني موثق (Tanzil) عبر api.alquran.cloud — رواية حفص،
+// تقسيم مدني 604 صفحات / 30 جزءًا / 6236 آية.
+// ------------------------------------------------------------
+
+model QuranSurah {
+  number         Int    @id // 1..114
+  name           String // الفاتحة
+  nameFull       String // سورة الفاتحة
+  ayahCount      Int
+  revelationType String // مكية / مدنية
+  startPage      Int
+  juzStart       Int
+  aliases        String? // أسماء وألقاب السورة للبحث (من قاعدة بيانات هدى)
+
+  @@index([name])
+}
+
+// ------------------------------------------------------------
+// رموز رسم المصحف المدني (QCF) — خطوط مجمع الملك فهد لكل صفحة
+// كل صف = كلمة/علامة واحدة بنقطة يونيكود داخل خط صفحتها
+// المصدر: قاعدة بيانات تطبيق هدى (so7ob/HUDA) — لا تُعدَّل
+// ------------------------------------------------------------
+model QuranGlyph {
+  id          Int @id // معرف المصدر
+  code        Int // نقطة يونيكود (64336+idx) داخل خط الصفحة
+  ayahId      Int // الرقم العالمي للآية 1..6236
+  ayahNumber  Int // رقم الآية في سورتها
+  surahId     Int
+  pageId      Int // 1..604
+  lineNumber  Int // 1..15 — سطر الصفحة في الرسم المدني
+  glyphTypeId Int // 1=كلمة 2=نهاية آية 3=علامة وقف 4=حزب 5=سجدة
+
+  @@index([pageId, id])
+  @@index([ayahId])
+}
+
+model QuranAyah {
+  id           Int     @id // الرقم العالمي للآية 1..6236
+  surah        Int
+  numberInSurah Int
+  text         String // النص العثماني المعتمد — لا يُعدَّل
+  page         Int // 1..604
+  juz          Int // 1..30
+  hizbQuarter  Int // 1..240
+  sajda        Boolean @default(false)
+
+  @@index([surah, numberInSurah])
+  @@index([page])
+  @@index([juz])
+}
+
+model TafsirSource {
+  key      String @id // muyassar
+  name     String // التفسير الميسّر
+  author   String // مجمع الملك فهد / فريق من العلماء
+  source   String // المصدر والطبعة
+  license  String // وصف الترخيص
+  isDefault Boolean @default(false)
+  isActive Boolean @default(true)
+}
+
+model TafsirAyah {
+  id     String @id @default(cuid())
+  tafsirKey String
+  ayahId Int // الرقم العالمي للآية
+  text   String
+
+  @@unique([tafsirKey, ayahId])
+  @@index([ayahId])
+}
+
+// الفهرس الموضوعي — تصنيفات مراجَعة قابلة للإدارة من لوحة الإدارة
+model QuranTopic {
+  id          String @id @default(cuid())
+  key         String @unique
+  title       String
+  description String?
+  ayahCount   Int    @default(0)
+  sortOrder   Int    @default(0)
+  isPublished Boolean @default(true)
+  ayahs       TopicAyah[]
+}
+
+model TopicAyah {
+  id      String @id @default(cuid())
+  topicId String
+  surah   Int
+  ayah    Int // numberInSurah
+  note    String? // سبب الربط/موضع المقصود
+
+  topic   QuranTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@unique([topicId, surah, ayah])
+}
+
+// ------------------------------------------------------------
+// التلاوات — المقرئون والروايات (مصادر مرخصة موثقة)
+// ------------------------------------------------------------
+
+model Reciter {
+  id               String  @id // ar.alafasy
+  name             String
+  riwayah          String  @default("حفص عن عاصم")
+  style            String  @default("مرتل") // مرتل / مجود
+  audioUrlTemplate String // https://cdn.islamic.network/quran/audio/128/{reciter}/{ayah}.mp3
+  bitrate          String  @default("128")
+  source           String // cdn.islamic.network (everyayah)
+  license          String  @default("متاح للاستخدام غير التجاري — المصدر موثق في دليل البيانات")
+  isDefault        Boolean @default(false)
+  isActive         Boolean @default(true)
+  sortOrder        Int     @default(0)
+}
+
+// تنزيلات التلاوة المحلية (محاكاة إدارة التنزيل في بيئة الويب)
+model DownloadedRecitation {
+  id        String   @id @default(cuid())
+  reciterId String
+  surah     Int
+  ayahCount Int
+  sizeBytes Int      @default(0)
+  status    String   @default("downloaded") // downloading / downloaded / paused / deleted
+  createdAt DateTime @default(now())
+
+  @@unique([reciterId, surah])
+  @@index([reciterId])
+}
+
+// ------------------------------------------------------------
+// محرك المحتوى الثقافي — الأقسام والمجموعات والكتب
+// (Content Management Engine — الأقسام ليست مبرمجة بأسماء ثابتة)
+// ------------------------------------------------------------
+
+model LibrarySection {
+  id        String  @id @default(cuid())
+  key       String  @unique // books, letters, sermons, lessons, lectures, duas, munajat, media
+  title     String
+  icon      String  @default("book") // اسم أيقونة lucide
+  color     String  @default("teal") // teal / cream / sand
+  description String?
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+  books     Book[]
+
+  @@index([sortOrder])
+}
+
+model Book {
+  id          String  @id @default(cuid())
+  sectionId   String
+  title       String
+  subtitle    String?
+  author      String?
+  description String?
+  coverStyle  String  @default("teal") // teal / sand / night — نمط الغلاف الزخرفي
+  coverEmoji  String? // زخرفة بديلة اختيارية
+  edition     String? // بيانات التحقيق والنشر
+  sourceName  String? // المصدر الموثق للنص
+  licenseNote String? // حقوق الاستخدام
+  mediaUrl    String? // رابط وسائط إن وجدت
+  mediaLabel  String?
+  status      String  @default("draft") // draft → review → approved → published → archived
+  isFeatured  Boolean @default(false)
+  sortOrder   Int     @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  section     LibrarySection @relation(fields: [sectionId], references: [id])
+  chapters    Chapter[]
+
+  @@index([sectionId, status])
+}
+
+model Chapter {
+  id        String  @id @default(cuid())
+  bookId    String
+  number    Int
+  title     String
+  content   String // نص الفصل (يدعم العربية المشكلة والحواشي بتنسيق ماركداون خفيف)
+  sortOrder Int     @default(0)
+  status    String  @default("published")
+
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@index([bookId, number])
+}
+
+// ------------------------------------------------------------
+// البرنامج اليومي والأوراد — بيانات الاستخدام الشخصية
+// ------------------------------------------------------------
+
+model ReadingPlan {
+  id          String   @id @default(cuid())
+  kind        String   @default("wird") // wird (ورد يومي) / daily (برنامج) / ramadan
+  name        String
+  targetType  String   @default("quran_surah") // quran_surah / quran_range / quran_pages / book
+  targetRef   String // JSON: {surah, from, to} أو {fromSurah, fromAyah, toSurah, toAyah} أو {bookId, chapterCount} أو {pages}
+  totalPages  Int      @default(0)
+  startDate   String // ISO date
+  endDate     String?
+  reminderTime String? // HH:mm
+  repeatKind  String   @default("daily") // daily / weekly
+  status      String   @default("active") // active / paused / finished
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  logs        PlanLog[]
+}
+
+model PlanLog {
+  id       String  @id @default(cuid())
+  planId   String
+  date     String // ISO date (اليوم)
+  done     Boolean @default(false)
+  pagesRead Int    @default(0)
+  note     String?
+
+  plan ReadingPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([planId, date])
+  @@index([planId])
+}
+
+// ------------------------------------------------------------
+// المفضلة والعلامات وآخر قراءة — بيانات شخصية محلية (Server-backed في بيئة الويب)
+// ------------------------------------------------------------
+
+model Favorite {
+  id        String   @id @default(cuid())
+  kind      String // ayah / tafsir / book / dua / chapter
+  refKey    String // مثال: ayah:262 أو book:abc
+  label     String
+  detail    String? // نص مقتطف
+  createdAt DateTime @default(now())
+
+  @@unique([kind, refKey])
+  @@index([kind])
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  kind      String // ayah / page / book_chapter
+  refKey    String
+  label     String
+  createdAt DateTime @default(now())
+
+  @@unique([kind, refKey])
+}
+
+model LastReading {
+  id        String   @id @default("main") // سجل وحيد
+  surah     Int      @default(1)
+  ayah      Int      @default(1)
+  page      Int      @default(1)
+  mode      String   @default("list") // list / mushaf
+  updatedAt DateTime @updatedAt
+}
+
+model LastBookRead {
+  id        String   @id @default("main")
+  bookId    String
+  chapterId String?
+  updatedAt DateTime @updatedAt
+}
+
+// إعدادات التطبيق (Key-Value JSON)
+model AppSetting {
+  key   String @id
+  value String
+}
+
+// مركز الإشعارات والتذكيرات المحلية
+model AppNotification {
+  id          String   @id @default(cuid())
+  kind        String   @default("reminder") // reminder / achievement / system
+  title       String
+  body        String
+  scheduledAt DateTime?
+  fireAt      DateTime? // وقت الإطلاق الفعلي
+  isRead      Boolean  @default(false)
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([fireAt])
+}
+
+// ------------------------------------------------------------
+// حزم المحتوى — نظام التحديث والعمل دون إنترنت
+// ------------------------------------------------------------
+
+model ContentPackage {
+  id          String @id @default(cuid())
+  key         String @unique // core-quran / tafsir-muyassar / audio-recitations / books-basic
+  name        String
+  kind        String // text / tafsir / audio / books
+  description String
+  version     Int    @default(1)
+  status      String @default("installed") // installed / available / updating
+  sizeLabel   String @default("-")
+  installedAt DateTime?
+}
+
+// ------------------------------------------------------------
+// لوحة الإدارة — المستخدمون والصلاحيات وسجل التدقيق
+// ------------------------------------------------------------
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  displayName  String
+  role         String    @default("editor") // owner / editor / reviewer
+  passwordHash String? // scrypt — يُضبط عند أول تسجيل دخول (الافتراضي موثق في التوثيق)
+  salt         String?
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  sessions     AdminSession[]
+}
+
+// جلسات الإدارة — رمز عشوائي في كوكي httpOnly ينتهي تلقائيًا
+model AdminSession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actor     String // اسم المستخدم وقت إنشاء الجلسة (للسجل)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([token])
+  @@index([expiresAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actor     String   @default("admin")
+  action    String // create / update / publish / archive / delete / import
+  entity    String // Book / Chapter / Topic / ...
+  entityId  String?
+  details   String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
