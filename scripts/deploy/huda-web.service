@@ -1,0 +1,44 @@
+# HUDA Web — systemd unit template (Debian 12, no Docker)
+#
+# Install (one-time, on the server):
+#   sudo cp huda-web.service /etc/systemd/system/huda@.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now huda@staging     # staging on port 3001
+#   sudo systemctl enable --now huda@production  # production on port 3000
+#
+# Per-instance env file: /opt/huda/<instance>/huda.env  (chmod 600, owned by huda)
+#   Example /opt/huda/staging/huda.env:
+#     PORT=3001
+#     DATABASE_URL=file:/opt/huda/staging/data/app.db
+#     HOSTNAME=127.0.0.1
+#
+# IMPORTANT:
+#   - DATABASE_URL points OUTSIDE the release tree so deploys never touch app data.
+#   - The unit runs the standalone server from the 'current' symlink target.
+
+[Unit]
+Description=HUDA Web (Next.js standalone) — instance %i
+After=network.target
+
+[Service]
+Type=simple
+User=huda
+Group=huda
+WorkingDirectory=/opt/huda/%i/current
+EnvironmentFile=-/opt/huda/%i/huda.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/bun server.js
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=20
+
+# Light hardening (Debian 12 defaults)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/opt/huda/%i/data
+
+[Install]
+WantedBy=multi-user.target

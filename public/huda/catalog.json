@@ -1,0 +1,2806 @@
+{
+ "source": "https://github.com/so7ob/HUDA/blob/main/res.zip",
+ "repository": "https://github.com/so7ob/HUDA",
+ "note": "جميع رموز وأشكال تطبيق «هدى الله» المستخرجة من مجلد res الخاص بتطبيق أندرويد",
+ "count": 331,
+ "items": [
+  {
+   "file": "-B.png",
+   "kind": "png",
+   "w": 64,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "-N.png",
+   "kind": "png",
+   "w": 88,
+   "h": 44,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "0E.png",
+   "kind": "png",
+   "w": 216,
+   "h": 216,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "0E.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "0S.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "0c.9.png",
+   "kind": "png",
+   "w": 16,
+   "h": 16,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "0f.png",
+   "kind": "png",
+   "w": 162,
+   "h": 162,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "1I.9.png",
+   "kind": "png",
+   "w": 192,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "1J.9.png",
+   "kind": "png",
+   "w": 54,
+   "h": 54,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "1M.png",
+   "kind": "png",
+   "w": 108,
+   "h": 108,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "1e.9.png",
+   "kind": "png",
+   "w": 2,
+   "h": 2,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "1u.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "السابق",
+   "group": "player"
+  },
+  {
+   "file": "1x.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "27.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "2K.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "2P.png",
+   "kind": "png",
+   "w": 66,
+   "h": 33,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "2d.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "2f.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "2j.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "33.9.png",
+   "kind": "png",
+   "w": 64,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "3A.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "3W.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "46.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "49.png",
+   "kind": "png",
+   "w": 54,
+   "h": 54,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "4B.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "4F.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "4k.png",
+   "kind": "png",
+   "w": 18,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "4u.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "5D.9.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "5P.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "5U.png",
+   "kind": "png",
+   "w": 30,
+   "h": 36,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "5c.png",
+   "kind": "png",
+   "w": 30,
+   "h": 30,
+   "mode": "RGB",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "5z.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "62.9.png",
+   "kind": "png",
+   "w": 30,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "6P.png",
+   "kind": "png",
+   "w": 18,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "6Q.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "6d.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "6t.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "7C.9.png",
+   "kind": "png",
+   "w": 72,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "7H.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "7I.9.png",
+   "kind": "png",
+   "w": 27,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "7N.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "7O.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إعادة سريعة للخلف",
+   "group": "player"
+  },
+  {
+   "file": "7V.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "7_.9.png",
+   "kind": "png",
+   "w": 94,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "7a.png",
+   "kind": "png",
+   "w": 324,
+   "h": 324,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "7i.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "7o.9.png",
+   "kind": "png",
+   "w": 54,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "80.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "8O.png",
+   "kind": "png",
+   "w": 432,
+   "h": 432,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "8S.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "8h.png",
+   "kind": "png",
+   "w": 128,
+   "h": 128,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "8t.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "96.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9N.9.png",
+   "kind": "png",
+   "w": 25,
+   "h": 22,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "9P.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9T.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9T1.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9T2.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9X.9.png",
+   "kind": "png",
+   "w": 19,
+   "h": 16,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "9c.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "9m.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "9w.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "9z.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "A1.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "A4.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "AE.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Ac.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "BG.9.png",
+   "kind": "png",
+   "w": 18,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "BJ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "BL.9.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "BM.png",
+   "kind": "png",
+   "w": 12,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "BW.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "C_.9.png",
+   "kind": "png",
+   "w": 8,
+   "h": 8,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Ci.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "D-.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "DL.9.png",
+   "kind": "png",
+   "w": 18,
+   "h": 5,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "DZ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "D_.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 11,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "De.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "EA.9.png",
+   "kind": "png",
+   "w": 38,
+   "h": 33,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "EP.png",
+   "kind": "png",
+   "w": 20,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Ea.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "تشغيل",
+   "group": "player"
+  },
+  {
+   "file": "Eg.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "FS.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "FW.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إيقاف تام",
+   "group": "player"
+  },
+  {
+   "file": "Ff.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "G2.9.png",
+   "kind": "png",
+   "w": 41,
+   "h": 41,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "GD.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "GI.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "GK.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "GY.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Gf.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Gt.9.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "H-.png",
+   "kind": "png",
+   "w": 44,
+   "h": 22,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "HA.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "Hl.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "تقديم سريع",
+   "group": "player"
+  },
+  {
+   "file": "IX.9.png",
+   "kind": "png",
+   "w": 128,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "In.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Iy.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "JA.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "JJ.9.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "JP.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "JS.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Je.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إعادة سريعة للخلف",
+   "group": "player"
+  },
+  {
+   "file": "Jl.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Jv.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إيقاف مؤقت",
+   "group": "player"
+  },
+  {
+   "file": "K5.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "KH.9.png",
+   "kind": "png",
+   "w": 47,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "KJ.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "KM.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "KO.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إيقاف مؤقت",
+   "group": "player"
+  },
+  {
+   "file": "K_.9.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Ke.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "LO.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Lf.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Li.9.png",
+   "kind": "png",
+   "w": 192,
+   "h": 72,
+   "mode": "RGBA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "M7.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "MD.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "MF.9.png",
+   "kind": "png",
+   "w": 108,
+   "h": 108,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "MQ.png",
+   "kind": "png",
+   "w": 176,
+   "h": 88,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Ma.9.png",
+   "kind": "png",
+   "w": 16,
+   "h": 16,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "NA.9.png",
+   "kind": "png",
+   "w": 108,
+   "h": 108,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "NF.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "NG.png",
+   "kind": "png",
+   "w": 36,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "NM.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "NZ.9.png",
+   "kind": "png",
+   "w": 24,
+   "h": 6,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Nk.9.png",
+   "kind": "png",
+   "w": 64,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "No.9.png",
+   "kind": "png",
+   "w": 38,
+   "h": 33,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Nu.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "OX.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "OX1.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "OZ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Oi.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Ok.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Ol.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "PH.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "السابق",
+   "group": "player"
+  },
+  {
+   "file": "PV.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "تقديم سريع",
+   "group": "player"
+  },
+  {
+   "file": "Pa.9.png",
+   "kind": "png",
+   "w": 96,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Pb.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Q-.png",
+   "kind": "png",
+   "w": 18,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "QJ.9.png",
+   "kind": "png",
+   "w": 25,
+   "h": 22,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "QZ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Qd.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Qg.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "تقديم سريع",
+   "group": "player"
+  },
+  {
+   "file": "Qt.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "RJ.png",
+   "kind": "png",
+   "w": 144,
+   "h": 144,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "RT.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "RV.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "S2.png",
+   "kind": "png",
+   "w": 324,
+   "h": 324,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "S8.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "SN.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Sc.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Sh.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Su.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 3,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Th.png",
+   "kind": "png",
+   "w": 64,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Tj.9.png",
+   "kind": "png",
+   "w": 18,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Tn.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "To.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Tp.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "U-.9.png",
+   "kind": "png",
+   "w": 8,
+   "h": 8,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "U2.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "U8.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "UR.png",
+   "kind": "png",
+   "w": 132,
+   "h": 66,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "VM.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "VU.png",
+   "kind": "png",
+   "w": 162,
+   "h": 162,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "Wh.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Wr.png",
+   "kind": "png",
+   "w": 88,
+   "h": 44,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "Ws.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Wz.png",
+   "kind": "png",
+   "w": 18,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "X-.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "X4.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 10,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "X6.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "XH.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "إيقاف مؤقت",
+   "group": "player"
+  },
+  {
+   "file": "XK.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "XW.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Xx.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Y3.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "YB.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إيقاف مؤقت",
+   "group": "player"
+  },
+  {
+   "file": "YD.png",
+   "kind": "png",
+   "w": 18,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "YG.9.png",
+   "kind": "png",
+   "w": 10,
+   "h": 12,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "YW.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Yw.9.png",
+   "kind": "png",
+   "w": 19,
+   "h": 16,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "Z8.png",
+   "kind": "png",
+   "w": 132,
+   "h": 66,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "ZL.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "ZP.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Zg.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "Zn.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "_G.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "_o.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "_q.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "a0.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "aG.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "aR.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "aU.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "aW.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "bL.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "bb.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "bt.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "c5.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "c6.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "cL.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "cV.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "ce.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "cm.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "d3.png",
+   "kind": "png",
+   "w": 64,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "d5.9.png",
+   "kind": "png",
+   "w": 71,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "dO.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "dW.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "dY.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "df.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "dq.png",
+   "kind": "png",
+   "w": 108,
+   "h": 108,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "e-.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "eA.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "eR.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "eT.9.png",
+   "kind": "png",
+   "w": 18,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "ej.9.png",
+   "kind": "png",
+   "w": 1,
+   "h": 1,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "fM.9.png",
+   "kind": "png",
+   "w": 27,
+   "h": 27,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "fY.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "g-.png",
+   "kind": "png",
+   "w": 40,
+   "h": 48,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "g-.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "gK.9.png",
+   "kind": "png",
+   "w": 8,
+   "h": 8,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "gR.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "gZ.9.png",
+   "kind": "png",
+   "w": 54,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "gj.9.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "gr.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "h4.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "h7.9.png",
+   "kind": "png",
+   "w": 41,
+   "h": 41,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "hZ.9.png",
+   "kind": "png",
+   "w": 1,
+   "h": 1,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "ha.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "hi.png",
+   "kind": "png",
+   "w": 432,
+   "h": 432,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "hm.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "hq.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "i6.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "iO.png",
+   "kind": "png",
+   "w": 64,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "iQ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "iR.9.png",
+   "kind": "png",
+   "w": 35,
+   "h": 25,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "io.9.png",
+   "kind": "png",
+   "w": 54,
+   "h": 54,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "j3.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "j4.png",
+   "kind": "png",
+   "w": 128,
+   "h": 128,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "jS.9.png",
+   "kind": "png",
+   "w": 1,
+   "h": 1,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "jW.png",
+   "kind": "png",
+   "w": 60,
+   "h": 72,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "je.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "kJ.9.png",
+   "kind": "png",
+   "w": 20,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "kT.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "kj.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "kn.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "kp.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "lN.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "lP.9.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "lR.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "ll.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "تشغيل",
+   "group": "player"
+  },
+  {
+   "file": "ls.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "ly.png",
+   "kind": "png",
+   "w": 27,
+   "h": 27,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "m0.png",
+   "kind": "png",
+   "w": 24,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "ma.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إعادة سريعة للخلف",
+   "group": "player"
+  },
+  {
+   "file": "mm.9.png",
+   "kind": "png",
+   "w": 27,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "nI.9.png",
+   "kind": "png",
+   "w": 30,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "nT.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "nf.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "nz.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "o-.png",
+   "kind": "png",
+   "w": 192,
+   "h": 192,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "oN.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "oP.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "oS.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "o_.9.png",
+   "kind": "png",
+   "w": 16,
+   "h": 16,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "o_.png",
+   "kind": "png",
+   "w": 64,
+   "h": 64,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "op.9.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "op.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "تشغيل",
+   "group": "player"
+  },
+  {
+   "file": "p8.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "pL.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إعادة سريعة للخلف",
+   "group": "player"
+  },
+  {
+   "file": "pU.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "pV.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "pY.png",
+   "kind": "png",
+   "w": 14,
+   "h": 14,
+   "mode": "RGB",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "pk.png",
+   "kind": "png",
+   "w": 128,
+   "h": 128,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "ps.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 3,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "pu.png",
+   "kind": "png",
+   "w": 860,
+   "h": 860,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "نمط زخرفي داكن",
+   "group": "pattern"
+  },
+  {
+   "file": "q6.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "qA.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "qD.9.png",
+   "kind": "png",
+   "w": 81,
+   "h": 81,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "qP.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "qx.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "rD.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "إيقاف مؤقت",
+   "group": "player"
+  },
+  {
+   "file": "rW.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "rj.9.png",
+   "kind": "png",
+   "w": 96,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "rx.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "s0.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "s4.png",
+   "kind": "png",
+   "w": 15,
+   "h": 15,
+   "mode": "RGB",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "sA.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "sA.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "sg.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "t1.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "tG.png",
+   "kind": "png",
+   "w": 128,
+   "h": 128,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "tL.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "tS.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "tZ.9.png",
+   "kind": "png",
+   "w": 20,
+   "h": 24,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "tc.png",
+   "kind": "png",
+   "w": 216,
+   "h": 216,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "te.png",
+   "kind": "png",
+   "w": 66,
+   "h": 33,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "tk.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "u0.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "u3.png",
+   "kind": "png",
+   "w": 176,
+   "h": 88,
+   "mode": "P",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "uJ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "uK.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "uL.9.png",
+   "kind": "png",
+   "w": 128,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "uO.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "uj.9.png",
+   "kind": "png",
+   "w": 15,
+   "h": 18,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "ut.9.png",
+   "kind": "png",
+   "w": 27,
+   "h": 27,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "uu.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 36,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "vJ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "vL.9.png",
+   "kind": "png",
+   "w": 8,
+   "h": 8,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "vZ.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "vr.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "السابق",
+   "group": "player"
+  },
+  {
+   "file": "vz.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 11,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "w4.png",
+   "kind": "png",
+   "w": 48,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "التالي",
+   "group": "player"
+  },
+  {
+   "file": "wL.9.png",
+   "kind": "png",
+   "w": 72,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "wN.9.png",
+   "kind": "png",
+   "w": 12,
+   "h": 12,
+   "mode": "RGB",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "w_.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "xN.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "xR.9.png",
+   "kind": "png",
+   "w": 10,
+   "h": 12,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "xa.9.png",
+   "kind": "png",
+   "w": 16,
+   "h": 16,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "xj.xml",
+   "kind": "xml-binary",
+   "label": "تخطيط أندرويد مُصرّف",
+   "group": "layout"
+  },
+  {
+   "file": "yH.9.png",
+   "kind": "png",
+   "w": 24,
+   "h": 6,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "yY.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 10,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "yn.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شعار التطبيق",
+   "group": "brand-logo"
+  },
+  {
+   "file": "z-.9.png",
+   "kind": "png",
+   "w": 16,
+   "h": 16,
+   "mode": "L",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "z9.9.png",
+   "kind": "png",
+   "w": 36,
+   "h": 48,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "zE.png",
+   "kind": "png",
+   "w": 32,
+   "h": 32,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "zL.png",
+   "kind": "png",
+   "w": 24,
+   "h": 24,
+   "mode": "RGBA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  },
+  {
+   "file": "zV.9.png",
+   "kind": "png",
+   "w": 81,
+   "h": 81,
+   "mode": "LA",
+   "nine_patch": true,
+   "label": "خلفية قابلة للتمدد (9-patch)",
+   "group": "nine-patch"
+  },
+  {
+   "file": "zk.png",
+   "kind": "png",
+   "w": 96,
+   "h": 96,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "تشغيل",
+   "group": "player"
+  },
+  {
+   "file": "zz.png",
+   "kind": "png",
+   "w": 72,
+   "h": 72,
+   "mode": "LA",
+   "nine_patch": false,
+   "label": "شكل عام",
+   "group": "misc"
+  }
+ ]
+}

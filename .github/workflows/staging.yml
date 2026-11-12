@@ -1,0 +1,94 @@
+name: Staging
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch: {}
+
+concurrency:
+  group: staging-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  staging-build:
+    name: staging-build
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./db/custom.db
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Production build (standalone)
+        run: bun run build
+
+      - name: Package deployable artifact (standalone + prisma schema + deploy scripts)
+        run: |
+          STAGE=$(mktemp -d)
+          cp -r .next/standalone/. "$STAGE"/
+          mkdir -p "$STAGE/prisma"
+          cp prisma/schema.prisma "$STAGE/prisma/"
+          cp -r scripts/deploy "$STAGE/deploy-scripts"
+          tar -czf huda-staging.tar.gz -C "$STAGE" .
+          ls -lh huda-staging.tar.gz
+
+      - name: Upload staging artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: huda-staging-${{ github.sha }}
+          path: huda-staging.tar.gz
+          retention-days: 14
+
+      - name: Report deploy gate status
+        run: |
+          if [ "${{ vars.STAGING_DEPLOY_ENABLED }}" = "true" ]; then
+            echo "Staging deploy gate ENABLED — staging-deploy job will run."
+          else
+            echo "::notice::Staging deploy gate DISABLED (repo variable STAGING_DEPLOY_ENABLED != 'true')."
+            echo "To activate: set repo variables STAGING_DEPLOY_ENABLED=true, STAGING_SERVICE, STAGING_HEALTH_URL and secrets STAGING_HOST, STAGING_SSH_KEY, STAGING_DEPLOY_PATH."
+          fi
+
+  staging-deploy:
+    name: staging-deploy
+    needs: staging-build
+    if: vars.STAGING_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout (deploy scripts)
+        uses: actions/checkout@v4
+
+      - name: Download staging artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: huda-staging-${{ github.sha }}
+
+      - name: Verify deployment prerequisites (secrets)
+        env:
+          STAGING_HOST: ${{ secrets.STAGING_HOST }}
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_DEPLOY_PATH: ${{ secrets.STAGING_DEPLOY_PATH }}
+        run: |
+          missing=0
+          for v in STAGING_HOST STAGING_SSH_KEY STAGING_DEPLOY_PATH; do
+            if [ -z "${!v:-}" ]; then echo "::error::Missing required secret: $v"; missing=1; fi
+          done
+          exit $missing
+
+      - name: Deploy to staging (release dir + symlink switch + health check + auto rollback)
+        env:
+          STAGING_HOST: ${{ secrets.STAGING_HOST }}
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_DEPLOY_PATH: ${{ secrets.STAGING_DEPLOY_PATH }}
+          STAGING_SERVICE: ${{ vars.STAGING_SERVICE || 'huda-staging' }}
+          STAGING_HEALTH_URL: ${{ vars.STAGING_HEALTH_URL || 'http://127.0.0.1:3001/api/health' }}
+        run: bash scripts/deploy/deploy.sh huda-staging.tar.gz staging

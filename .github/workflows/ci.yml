@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gates:
+    name: quality-gates
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./db/custom.db
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Prisma validate
+        run: bunx prisma validate
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Unit tests (bun test)
+        run: bun test
+
+      # next build performs the full TypeScript check itself (ignoreBuildErrors
+      # was removed from next.config.ts) and generates next-env.d.ts + .next/types,
+      # which the standalone tsc pass below then verifies.
+      - name: Production build (standalone, includes full TS check)
+        run: bun run build
+
+      - name: Typecheck (tsc over generated types)
+        run: bun run typecheck
+
+      - name: Verify standalone server artifact
+        run: |
+          test -f .next/standalone/server.js
+          echo "standalone server.js present"

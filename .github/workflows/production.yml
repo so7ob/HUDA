@@ -1,0 +1,97 @@
+name: Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Git tag to deploy (must be an ancestor of main, e.g. v0.3.0)"
+        required: true
+        type: string
+
+jobs:
+  production-gate-status:
+    name: production-gate-status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report production gate
+        run: |
+          if [ "${{ vars.PRODUCTION_DEPLOY_ENABLED }}" = "true" ]; then
+            echo "Production deployment gate is ENABLED — production-deploy job will run."
+          else
+            echo "::notice::Production deployment is DISABLED (repo variable PRODUCTION_DEPLOY_ENABLED != 'true')."
+            echo "To activate:"
+            echo "  1. Set repo variable PRODUCTION_DEPLOY_ENABLED=true"
+            echo "  2. Set secrets PRODUCTION_HOST, PRODUCTION_SSH_KEY, PRODUCTION_DEPLOY_PATH"
+            echo "  3. Create GitHub environment 'production' with required reviewers"
+            echo "  4. Optionally set vars PRODUCTION_SERVICE / PRODUCTION_HEALTH_URL"
+            echo "Until then, releases are published but NOT deployed — this is an explicit, honest state."
+          fi
+
+  production-deploy:
+    name: production-deploy
+    needs: production-gate-status
+    if: vars.PRODUCTION_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout (release tag)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Guard — deployed tag must be in main history
+        run: |
+          TAG="${{ github.event.release.tag_name || inputs.tag }}"
+          git fetch origin main --quiet
+          if ! git merge-base --is-ancestor "$TAG" origin/main; then
+            echo "::error::Tag $TAG is NOT an ancestor of origin/main — production deploys are only allowed from main releases."
+            exit 1
+          fi
+          echo "Tag $TAG verified as part of origin/main history."
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Production build (standalone)
+        env:
+          DATABASE_URL: file:./db/custom.db
+        run: bun run build
+
+      - name: Package production artifact
+        run: |
+          STAGE=$(mktemp -d)
+          cp -r .next/standalone/. "$STAGE"/
+          mkdir -p "$STAGE/prisma"
+          cp prisma/schema.prisma "$STAGE/prisma/"
+          cp -r scripts/deploy "$STAGE/deploy-scripts"
+          tar -czf huda-production.tar.gz -C "$STAGE" .
+          ls -lh huda-production.tar.gz
+
+      - name: Verify deployment prerequisites (secrets)
+        env:
+          PRODUCTION_HOST: ${{ secrets.PRODUCTION_HOST }}
+          PRODUCTION_SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+          PRODUCTION_DEPLOY_PATH: ${{ secrets.PRODUCTION_DEPLOY_PATH }}
+        run: |
+          missing=0
+          for v in PRODUCTION_HOST PRODUCTION_SSH_KEY PRODUCTION_DEPLOY_PATH; do
+            if [ -z "${!v:-}" ]; then echo "::error::Missing required secret: $v"; missing=1; fi
+          done
+          exit $missing
+
+      - name: Deploy to production (DB backup -> release dir -> health check -> auto rollback)
+        env:
+          PRODUCTION_HOST: ${{ secrets.PRODUCTION_HOST }}
+          PRODUCTION_SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+          PRODUCTION_DEPLOY_PATH: ${{ secrets.PRODUCTION_DEPLOY_PATH }}
+          PRODUCTION_SERVICE: ${{ vars.PRODUCTION_SERVICE || 'huda-production' }}
+          PRODUCTION_HEALTH_URL: ${{ vars.PRODUCTION_HEALTH_URL || 'http://127.0.0.1:3000/api/health' }}
+        run: bash scripts/deploy/deploy.sh huda-production.tar.gz production
