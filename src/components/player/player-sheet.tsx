@@ -5,15 +5,16 @@
  * مصغّر ثابت فوق شريط التنقل أثناء التشغيل؛
  * اللوحة الكاملة: المقرئ، التكرار، السرعة، تنزيل السورة.
  */
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer";
 import { Slider } from "@/components/ui/slider";
 import { api } from "@/lib/api";
 import { useAppStore } from "@/lib/store";
+import { ayahIdsForSurah, downloadSurahAudio, getSurahStoredInfo } from "@/lib/audio-store";
 import { HudaImg, HUDA_ASSETS } from "@/components/shared/huda-assets";
 import { toArabicDigits } from "@/components/shared/ornaments";
-import { X, Repeat, Repeat1, Download, Gauge, UserRound, Loader2 } from "lucide-react";
+import { X, Repeat, Repeat1, Gauge, UserRound, Loader2, CheckCircle2, CloudDownload } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -61,11 +62,48 @@ export function MiniPlayer() {
 function PlayerSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const player = useAppStore((s) => s.player);
   const setPlayer = useAppStore((s) => s.setPlayer);
+  const queryClient = useQueryClient();
   const { data: surahsData } = useQuery({ queryKey: ["surahs"], queryFn: api.surahs, staleTime: Infinity });
   const { data: recitersData } = useQuery({ queryKey: ["reciters"], queryFn: api.reciters, staleTime: Infinity });
-  const [downloading, setDownloading] = useState(false);
+  const { data: downloadsData } = useQuery({ queryKey: ["downloads"], queryFn: api.downloads });
+  const [dlState, setDlState] = useState<{ done: number; total: number } | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const surahName = surahsData?.surahs.find((s) => s.number === player.surah)?.name ?? "";
   const surahCount = surahsData?.surahs.find((s) => s.number === player.surah)?.ayahCount ?? 0;
+  const reciterName = recitersData?.reciters.find((r) => r.id === player.reciterId)?.name ?? player.reciterId;
+
+  // سورة منزّلة كاملة لنفس المقرئ؟ (Issue #9) — التغطية المحلية الفعلية شرط،
+  // فالسجل وحده قد يكون قديمًا من التدفق الوهمي بلا ملفات محلية.
+  const [localCoverage, setLocalCoverage] = useState<number | null>(null);
+  useEffect(() => {
+    let alive = true;
+    void (async () => {
+      const ids = ayahIdsForSurah(surahsData?.surahs ?? [], player.surah);
+      if (!ids.length) {
+        if (alive) setLocalCoverage(null);
+        return;
+      }
+      const info = await getSurahStoredInfo(player.reciterId, ids);
+      if (alive) setLocalCoverage(info.stored);
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [player.reciterId, player.surah, surahsData, downloadsData]);
+
+  const hasServerRecord = (downloadsData?.downloads ?? []).some(
+    (d) => d.reciterId === player.reciterId && d.surah === player.surah
+  );
+  const isDownloaded = dlState === null && localCoverage !== null && localCoverage >= surahCount && surahCount > 0;
+  const hasLegacyRecord = hasServerRecord && !isDownloaded && dlState === null;
+
+  // إلغاء أي تنزيل جارٍ عند تفكيك اللوحة
+  useEffect(() => {
+    return () => {
+      abortRef.current?.abort();
+      abortRef.current = null;
+    };
+  }, []);
 
   const jump = (dir: 1 | -1) => {
     if (!player.ayahId) return;
@@ -76,24 +114,45 @@ function PlayerSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (v: 
     }
   };
 
-  const downloadSurah = async () => {
-    if (downloading) return;
-    setDownloading(true);
+  /** تنزيل فعلي: كل آية MP3 عبر proxy داخلي → IndexedDB ثم تسجيل سجل الخادم بحجم حقيقي */
+  const startDownload = async () => {
+    if (dlState) return;
+    const ayahIds = ayahIdsForSurah(surahsData?.surahs ?? [], player.surah);
+    if (!ayahIds.length) {
+      toast.error("تعذر تحديد آيات السورة — أعد المحاولة");
+      return;
+    }
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
+    setDlState({ done: 0, total: ayahIds.length });
     try {
-      // قياس حجم فعلي لآية أولى عبر HEAD (إن سمح CORS) وإلا تقدير معلن
-      let sizeBytes = surahCount * 340_000;
-      try {
-        const tpl = `https://cdn.islamic.network/quran/audio/128/${player.reciterId}/1.mp3`;
-        const head = await fetch(tpl, { method: "HEAD" });
-        const len = head.headers.get("content-length");
-        if (len) sizeBytes = Number(len) * surahCount;
-      } catch {
-        /* تقدير افتراضي معلن */
+      const summary = await downloadSurahAudio(
+        {
+          reciterId: player.reciterId,
+          surahNumber: player.surah,
+          ayahIds,
+          signal: ctrl.signal,
+          skipExisting: true,
+          onProgress: (p) => setDlState({ done: p.done, total: p.total }),
+        },
+      );
+      if (summary.cancelled) return;
+      if (summary.failedAyahs.length > 0) {
+        toast.error(
+          `فشل تنزيل ${toArabicDigits(summary.failedAyahs.length)} آية — تحقق من الاتصال وأعد المحاولة (سيُستكمل الناقص فقط)`
+        );
+        return;
       }
-      await api.addDownload(player.reciterId, recitersData?.reciters.find((r) => r.id === player.reciterId)?.name ?? "", player.surah, surahName, surahCount, sizeBytes);
-      toast.success(`أُضيفت سورة ${surahName} إلى التنزيلات (حجم تقريبي: ${(sizeBytes / 1024 / 1024).toFixed(1)} م.ب)`);
+      await api.addDownload(player.reciterId, reciterName, player.surah, surahName, ayahIds.length, summary.totalBytes);
+      queryClient.invalidateQueries({ queryKey: ["downloads"] });
+      toast.success(
+        `نُزّلت سورة ${surahName} كاملة (${(summary.totalBytes / (1024 * 1024)).toFixed(1)} م.ب) — متاحة دون إنترنت`
+      );
+    } catch {
+      toast.error("تعذر التنزيل — تحقق من الاتصال وحاول مجددًا");
     } finally {
-      setDownloading(false);
+      setDlState(null);
+      abortRef.current = null;
     }
   };
 
@@ -202,17 +261,52 @@ function PlayerSheet({ open, onOpenChange }: { open: boolean; onOpenChange: (v: 
             </div>
           </div>
 
-          {/* تنزيل */}
-          <button
-            onClick={downloadSurah}
-            disabled={downloading}
-            className="w-full flex items-center justify-center gap-2 bg-accent text-teal-dark rounded-2xl py-3 font-bold text-sm disabled:opacity-60"
-          >
-            {downloading ? <Loader2 size={18} className="animate-spin" /> : <Download size={18} />}
-            تنزيل سورة {surahName} للاستماع دون إنترنت
-          </button>
+          {/* تنزيل فعلي (Issue #9) — MP3 لكل آية في مخزن المتصفح المحلي */}
+          {dlState ? (
+            <div className="w-full bg-accent text-teal-dark rounded-2xl py-3 px-4">
+              <div className="flex items-center justify-between text-sm font-bold">
+                <span className="flex items-center gap-2">
+                  <Loader2 size={18} className="animate-spin" />
+                  جارٍ التنزيل {toArabicDigits(dlState.done)}/{toArabicDigits(dlState.total)}
+                </span>
+                <button
+                  onClick={() => abortRef.current?.abort()}
+                  className="flex items-center gap-1 rounded-full bg-white/60 px-3 py-1 text-xs font-medium hover:bg-white/80 transition-colors"
+                  aria-label="إلغاء التنزيل"
+                >
+                  <X size={13} /> إلغاء
+                </button>
+              </div>
+              <div
+                className="mt-2 h-1.5 rounded-full bg-white/50 overflow-hidden"
+                role="progressbar"
+                aria-valuenow={Math.round((dlState.done / Math.max(dlState.total, 1)) * 100)}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-label="تقدم تنزيل السورة"
+              >
+                <div
+                  className="h-full bg-teal-dark rounded-full transition-all"
+                  style={{ width: `${Math.round((dlState.done / Math.max(dlState.total, 1)) * 100)}%` }}
+                />
+              </div>
+            </div>
+          ) : isDownloaded ? (
+            <div className="w-full flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 rounded-2xl py-3 font-bold text-sm border border-emerald-200/70">
+              <CheckCircle2 size={18} />
+              منزّلة — متاحة دون إنترنت
+            </div>
+          ) : (
+            <button
+              onClick={startDownload}
+              className="w-full flex items-center justify-center gap-2 bg-accent text-teal-dark rounded-2xl py-3 font-bold text-sm active:scale-[0.99] transition-transform"
+            >
+              <CloudDownload size={18} />
+              {hasLegacyRecord ? `إكمال تنزيل سورة ${surahName} (ملفات ناقصة)` : `تنزيل سورة ${surahName} للاستماع دون إنترنت`}
+            </button>
+          )}
           <p className="text-[11px] text-muted-foreground text-center mt-2">
-            في بيئة الويب: التسجيل يُدار عبر ذاكرة المتصفح المؤقتة — في نسخة الجوال تُخزَّن الملفات محليًا كاملة.
+            يُخزَّن الصوت فعليًا في جهازك (مخزن المتصفح المحلي) آية آية — وتشغيله من الجهاز دون أي شبكة.
           </p>
         </div>
       </DrawerContent>
