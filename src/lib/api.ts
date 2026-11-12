@@ -93,6 +93,12 @@ export interface TopicItem {
   ayahs?: { surah: number; ayah: number; note?: string; text?: string }[];
 }
 
+/** P0-AUDIT: نوع دقيق لتفاصيل موضوع الإدارة — آياته تحمل معرفات (إصلاح أخطاء TS المخفية) */
+export interface AdminTopicDetail extends Omit<TopicItem, "ayahs"> {
+  isPublished: boolean;
+  ayahs: { id: string; surah: number; ayah: number; note?: string; text: string }[];
+}
+
 export interface LibrarySectionItem {
   id: string;
   key: string;
@@ -288,9 +294,11 @@ export const api = {
   /* الإدارة */
   admin: {
     session: () =>
-      get<{ authenticated: boolean; user?: { username: string; displayName: string; role: string } }>(
-        "/api/admin/auth/session"
-      ),
+      get<{
+        authenticated: boolean;
+        user?: { username: string; displayName: string; role: string };
+        defaultPassword?: boolean;
+      }>("/api/admin/auth/session"),
     login: (username: string, password: string) =>
       postSafe<{ ok: boolean; user: { username: string; displayName: string; role: string } }>(
         "/api/admin/auth/login",
@@ -319,10 +327,7 @@ export const api = {
     topics: () => get<{ topics: TopicItem[] }>("/api/admin/topics"),
     topic: (id: string) =>
       get<{
-        topic: TopicItem & {
-          isPublished: boolean;
-          ayahs: { id: string; surah: number; ayah: number; note?: string; text: string }[];
-        };
+        topic: AdminTopicDetail;
       }>(`/api/admin/topics/${id}`),
     createTopic: (data: { title: string; description?: string }) => postSafe<{ topic: TopicItem }>("/api/admin/topics", data),
     updateTopic: (id: string, data: Record<string, unknown>) => patchSafe<{ topic: TopicItem }>(`/api/admin/topics/${id}`, data),
