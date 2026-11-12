@@ -108,3 +108,11 @@
 
 ### الإثبات
 - CI على PR الترحيل: lint + 22 اختبار + build standalone + tsc — [يُستكمل رقم PR ونتيجة CI بعد التشغيل والدمج]
+
+### الدمج والنتائج الفعلية (الدورة 3 — تكملة)
+- **PR #14** (ترحيل + بنية CI/CD): CI أخضر فعلي على GitHub — `release-gates` ✓ (install مجمد + prisma + lint + bun test 22 + build standalone + tsc) و`version-check` ✓ — مدمج بـ merge commit: **main = `1c4a4f7`** (رابط: https://github.com/so7ob/HUDA/pull/14)
+- تحقق محتوى main من GitHub API: src/prisma/public/scripts/tests/docs/package.json/bun.lock/.github + الأرشيفات الأربع HTTP 200
+- **develop** أُنشئ من main = `1c4a4f7` (تطابق SHA مؤكد عبر API) ثم **PR #15** (وثائق دورة التطوير، فرع `chore/docs-dev-cycle` من develop): CI أخضر — `quality-gates` ✓ — مدمج → **develop = `53ca395`**
+- **حماية الفروع مؤكدة** (GET protection): main يطلب [`release-gates`,`version-check`]، develop يطلب [`quality-gates`]، strict up-to-date، enforce_admins، منع force push ومنع الحذف، 0 موافقات (مستودع مطور واحد)
+- Release PR: <PR_NUM> — bump `0.2.1 → 0.3.0` + سجلات نهائية — الإصدار: <RELEASE_URL>
+- Staging/Production: workflows جاهزة؛ النشر غير مفعّل بغياب خادم/أسرار — الحالة موثقة بصدق في `production-gate-status` و`staging-build`
