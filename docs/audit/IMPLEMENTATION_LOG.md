@@ -149,3 +149,10 @@
 ### حدود موثقة بصدق
 - قائمة التنزيلات في الشاشة سجل خادمي — دون شبكة تعرض حالة الفراغ (ملفات الـ Blob محلية لكن الإدارة تحتاج الشبكة) — تحسين مستقبلي: تخزين مؤقت للقائمة
 - إثبات «دون شبكة» عبر محاكاة offline في المتصفح الآلي — يُستحسن اختبار يدوي على جهاز حقيقي
+
+### الإصدار الفعلي — v0.4.0 (الدورة 4 — تكملة)
+- **Release PR #20** (release/v0.4.0 من develop، bump `0.3.0 → 0.4.0`): `release-gates` ✓ + `version-check` ✓ — مدمج بـ merge commit → **main = `55f0bcd`** (https://github.com/so7ob/HUDA/pull/20)
+- **GitHub Release + Tag v0.4.0** على main: https://github.com/so7ob/HUDA/releases/tag/v0.4.0 (release.yml يبني artifact عند دفع التاج)
+- حالة النشر: **«منشور على main غير منشور-إنتاجياً»** — النشر الإنتاجي غير مفعّل (لا خادم/أسرار — Issue #17) وفق الوثائق
+- Issue **#9 مغلق** بتعليق أدلة: https://github.com/so7ob/HUDA/issues/9 (شرط القبول offline مثبت بالمتصفح)
+- مزامنة ما بعد الإصدار: هذا الـ PR نفسه (develop ← main)
