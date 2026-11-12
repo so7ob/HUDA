@@ -107,6 +107,7 @@
 `next-env.d.ts` في وضع dev يستورد `.next/dev/types/routes.d.ts` — لذلك يبقى مستثنى من git، وترتيب CI: **build أولاً** (يُجري فحص TS الكامل بعد إزالة ignoreBuildErrors ويولّد الأنواع) ثم `tsc --noEmit` للتحقق المزدوج.
 
 ### الإثبات
+- مزامنة ما بعد الإصدار: **PR #18** (chore/sync-develop-v0.3.0 من develop، دمج origin/main) — quality-gates ✓ — مدمج → **develop = `1ce6d68`** (الإصدار 0.3.0 على develop)
 - CI على PR الترحيل: lint + 22 اختبار + build standalone + tsc — [يُستكمل رقم PR ونتيجة CI بعد التشغيل والدمج]
 
 ### الدمج والنتائج الفعلية (الدورة 3 — تكملة)
@@ -121,7 +122,7 @@
 
 ## الدورة 4 — Issue #9: تنزيل التلاوات فعليًا والتشغيل دون شبكة
 
-**الفرع:** `feature/audio-downloads` (من أحدث origin/develop بعد PR مزامنة #18) — **PR: https://github.com/so7ob/HUDA/pull/PR_NUM**
+**الفرع:** `feature/audio-downloads` (من أحدث origin/develop بعد PR مزامنة #18) — **PR: https://github.com/so7ob/HUDA/pull/19**
 
 ### ما نُفّذ فعليًا
 

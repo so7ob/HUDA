@@ -8,7 +8,7 @@
 |---|---|
 | `main` (الإنتاج) | `77ad968` — الإصدار v0.3.0 (Tag + GitHub Release) |
 | `develop` (التكامل) | `1ce6d68` بعد PR **#18** (مزامنة develop ← main بعد الإصدار: الإصدار 0.3.0 + سجلات الدورة 3) |
-| دورة الميزة | فرع `feature/audio-downloads` من develop → PR إلى develop (CI quality-gates) — الرقم يُسجل بعد الفتح |
+| دورة الميزة | فرع `feature/audio-downloads` من develop → **PR #19**: https://github.com/so7ob/HUDA/pull/19 |
 | Issue #9 | منفّذ: تخزين MP3 فعلي في IndexedDB عبر proxy داخلي، تشغيل من المخزن أولًا، إدارة تنزيلات كاملة — شرط القبول مثبت بمتصفح في وضع offline (تفاصيل وأدلة: docs/audit/IMPLEMENTATION_LOG.md الدورة 4) |
 | إصلاحات مرافقة | removeDownload كان 405 (مسار DELETE خاطئ)؛ position خام يكسر fixed/sticky (زر التلاوة العائم خارج الشاشة) |
 | الاختبارات | bun test: 37/37 أخضر محليًا (25 جديد لمخزن الصوت) |
