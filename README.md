@@ -119,6 +119,11 @@ docs/                             # الأدلة والتقارير
 | [`docs/content-management.md`](docs/content-management.md) | دليل إدارة المحتوى وسير عمل النشر |
 | [`docs/flutter-port.md`](docs/flutter-port.md) | خطة نقل التجربة إلى Flutter/Android (البنية نفسها) |
 | [`docs/report.md`](docs/report.md) | تقرير المنفذ والمتبقي والقيود |
+| [`docs/development/BRANCHING_STRATEGY.md`](docs/development/BRANCHING_STRATEGY.md) | استراتيجية الفروع وقواعدها الملزمة |
+| [`docs/development/CONTRIBUTING.md`](docs/development/CONTRIBUTING.md) | دليل المساهمة ومعايير قبول PR |
+| [`docs/development/WORKFLOW.md`](docs/development/WORKFLOW.md) | دورة العمل الكاملة والـ Hotfix |
+| [`docs/deployment/DEPLOYMENT_GUIDE.md`](docs/deployment/DEPLOYMENT_GUIDE.md) | دليل النشر (Debian + systemd + Nginx بلا Docker) |
+| [`docs/deployment/RELEASE_PROCESS.md`](docs/deployment/RELEASE_PROCESS.md) | عملية الإصدار وترقيم SemVer |
 
 ## الترخيص
 - شيفرة المشروع: للاستخدام حسب قرار مالك المشروع.
