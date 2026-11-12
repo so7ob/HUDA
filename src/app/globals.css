@@ -227,13 +227,22 @@
   background: linear-gradient(180deg, var(--huda-reading) 0%, color-mix(in srgb, var(--huda-reading) 80%, #000000) 100%);
 }
 
-/* تدرج الترويسة الفيروزي */
+/* تدرج الترويسة الفيروزي
+   ملاحظة (Issue #9 — إصلاح مرافق): بلا position هنا — أي position خام في
+   قاعدة غير طبقية يتغلب على utilities (@layer) فيلغي fixed/sticky على
+   العناصر التي تجمع هذا الصنف معها (زر التلاوة العائم، الترويسات اللاصقة).
+   ربط النقش الزخرفي يتم عبر .header-pattern أدناه. */
 .bg-header-gradient {
   background: linear-gradient(160deg, var(--huda-teal) 0%, var(--huda-teal-dark) 62%, var(--huda-teal-deep) 100%);
+}
+
+/* نقش زخرفي فائق الترويسة — من أصول «هدى الله» (pattern-dark.png)
+   التموضع النسبي هنا فقط للعناصر العادية؛ أما sticky/fixed فهي بنفسها
+   عناصر positioned تثبّت النمط Absolute دون المساس بموضعها الوظيفي. */
+.header-pattern:not(.sticky):not(.fixed) {
   position: relative;
 }
 
-/* نقش زخرفي فائق الترويسة — من أصول «هدى الله» (pattern-dark.png) */
 .header-pattern::before {
   content: "";
   position: absolute;
