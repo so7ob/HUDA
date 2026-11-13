@@ -2,17 +2,16 @@
 
 > حدّث هذا الملف آخر شيء قبل توقف أي جلسة. اقرأه أولًا عند بدء جلسة جديدة.
 
-## الحالة بعد الدورة 4 (Issue #9 — مكتملة بأدلة، بانتظار الدمج)
+## الحالة بعد الدورة 5 (Issue #10 — مكتملة ومُصدرة v0.5.0)
 
 | العنصر | القيمة الفعلية |
 |---|---|
-| `main` (الإنتاج) | `55f0bcd` — **الإصدار v0.4.0** (Tag + GitHub Release: https://github.com/so7ob/HUDA/releases/tag/v0.4.0) |
-| `develop` (التكامل) | متزامن مع main بعد PR مزامنة v0.4.0 (الإصدار 0.4.0 على الطرفين) |
-| دورة الميزة | **PR #19** مدمج في develop (`c15676d`): https://github.com/so7ob/HUDA/pull/19 — CI quality-gates ✓ |
-| Release PR | **PR #20** مدمج في main (`55f0bcd`): https://github.com/so7ob/HUDA/pull/20 — release-gates ✓ version-check ✓ |
-| Issue #9 | **مغلق (completed)** بأدلة: https://github.com/so7ob/HUDA/issues/9 — التخزين الفعلي + التشغيل دون شبكة مثبتان |
-| إصلاحات مرافقة | removeDownload كان 405 (مسار DELETE خاطئ)؛ position خام يكسر fixed/sticky (زر التلاوة العائم خارج الشاشة) |
-| الاختبارات | bun test: 37/37 أخضر محليًا (25 جديد لمخزن الصوت) |
+| `main` (الإنتاج) | `65ac110` — الإصدار v0.5.0 (Tag + GitHub Release: https://github.com/so7ob/HUDA/releases/tag/v0.5.0) |
+| `develop` (التكامل) | `7c8353e` = PR #22 مدمج؛ **مزامنة post-release قيد الإنجاز: PR من `chore/sync-develop-v0.5.0` (يُستكمل رقمه بعد الإنشاء)** |
+| دورة الميزة | فرع `test/e2e-critical` من develop → **PR #22**: https://github.com/so7ob/HUDA/pull/22 — CI أخضر (quality-gates + e2e-critical-paths) |
+| Issue #10 | مغلق بأدلة: 14 اختبار E2E (قراءة/مصحف/آخر قراءة، بحث، مفضلة+استمرارية، إدارة+حدّ محاولات، تلاوة حقيقية بمحاكاة CDN) — تعليق الإغلاق: https://github.com/so7ob/HUDA/issues/10#issuecomment-6841697060 |
+| الإصدار | PR #23 → main = `65ac110` + Tag v0.5.0 + GitHub Release (version-check + release-gates ✓) |
+| الاختبارات | `bun test` 37/37 وحدة + `playwright test` 14/14 E2E (محليًا مرتين + CI) |
 | Staging/Production | كما هي: workflows جاهزة، النشر غير مفعّل (Issue #17 ينتظر خادمًا/أسرارًا) |
 
 ## القواعد الحاكمة (غير قابلة للتفاوض)
@@ -21,18 +20,20 @@
 2. لا force push ولا حذف فروع محمية ولا إعادة كتابة تاريخ.
 3. فروع العمل من `origin/develop` المحدّث: `feature/*` `fix/*` `refactor/*` `perf/*` `test/*` `chore/*`؛ `hotfix/*` من `main` ويُعاد دمجه في develop.
 4. الإصدار: Release PR من develop إلى main + ترقيم SemVer في `package.json` (يفرضه version-check مقارنةً بـ main) + Tag على main + GitHub Release.
-5. **مزامنة develop ← main بعد كل إصدار** (PR chore/sync كما في #18) — منع اختلاف دائم وإبقاء سجلات التدقيق حديثة في فروع العمل.
+5. **مزامنة develop ← main بعد كل إصدار** (PR chore/sync كما في #18/#21) — منع اختلاف دائم وإبقاء سجلات التدقيق حديثة.
 6. قاعدة البيانات الإنتاجية خارج شجرة الإصدار؛ ممنوع `db:push:fresh` و`--accept-data-loss` في الإنتاج.
 7. لا أسرار في المستودع — GitHub Secrets/Environments فقط.
 8. `bun run build` في CI فقط؛ بيئة المعاينة المحلية dev فقط.
 9. `main_db.sqlite` وأرشيفات جذر المستودع (res.zip وأخواتها) مصادر موثقة للقراءة فقط.
+10. اختبارات E2E الآن **بوابة إلزامية** (`e2e-critical-paths`) — أي كسر للمسارات الحرجة يمنع الدمج.
 
-## الخطوة التالية المطلوبة (الدورة 5 — وفق PRIORITIZED_BACKLOG.md)
+## الخطوة التالية المطلوبة (وفق PRIORITIZED_BACKLOG.md)
 
-1. **Issue #10 (P1)**: اختبارات E2E آلية (Playwright) للمسارات الحرجة — فرع `test/e2e-critical` من أحدث develop.
-2. بعدها وفق الأولويات: Issue #11 (ترحيل حد المحاولات إلى SQLite) وIssue #12 (فهرس بحث دائم).
-3. عند توفر خادم/نطاق: تفعيل النشر وفق `docs/deployment/` وإغلاق Issue #17.
-4. تحسين اختياري موثق: تخزين مؤقت لقائمة التنزيلات لتعمل دون شبكة (دورة قادمة).
+اختيار واحد من P1 المتبقية (كلاهما بلا اعتماديات):
+1. **Q-06** اختبار الاستمرارية الشامل: مفضلة/علامات/آخر قراءة عبر إغلاق وفتح الجلسة (جزء منها مغطى الآن في E2E — يستكمل العلامات المرجعية والخطط)؛ أو
+2. **L-3** دورة حياة محتوى المكتبة: مسودة ← مراجعة ← نشر مع قصر الحذف على غير المنشور (API + واجهة الإدارة موجودة جزئيًا — يعتمد على admin panel).
+
+الموصى به: **L-3** (قيمة وظيفية مباشرة في لوحة الإدارة)، ثم **P-1** (استئناف الخطط والإحصاءات).
 
 ## أوامر الاستئناف السريعة
 
@@ -40,12 +41,13 @@
 cd /home/z/my-project
 git fetch origin --prune --tags
 git checkout -B main origin/main            # البيئة تفرض HEAD=main محليًا — أبقِ main متطابقًا
-git branch -f develop origin/develop 2>/dev/null || true
 bun install && bunx prisma generate && bun run dev   # الخادم على :3000
-bun test                                     # أخضر كامل قبل أي تغيير
+bun test                                     # 37 وحدة — أخضر قبل أي تغيير
+# E2E عند الحاجة (لا يشغّل خادم المعاينة — خادم مستقل :3105):
+# cd /home/z/worktrees/<branch> && bun run test:e2e
 # فرع عمل جديد (worktree آمن):
-git fetch origin develop && git worktree add -b feature/<name> /home/z/worktrees/<name> origin/develop
-git push origin feature/<name>:feature/<name>
+git fetch origin develop && git worktree add -b <type>/<name> /home/z/worktrees/<name> origin/develop
+git push origin <type>/<name>:<type>/<name>
 ```
 
 ## ملاحظات بيئية حرجة (تجربة مؤكدة)
@@ -53,6 +55,5 @@ git push origin feature/<name>:feature/<name>
 - **البيئة تعيد HEAD إلى main المحلي دوريًا** وتعيد الشجرة لمحتوى main — الحل: main المحلي = origin/main دائمًا، والعمل عبر `git worktree` تحت `/home/z/worktrees/`، والدفع بالاسم الصريح `<local>:<remote>`.
 - الدمج البعيدة عبر GitHub API (PR merge commits) — الحماية على main/develop تمنع الدفع المباشر حتى للـ admin.
 - التوكن GitHub: `/home/z/.gh_token` خارج المستودع فقط — يُنصح المالك بتجديده وإبطال القديم.
-- نقرات `eval` البرمجية لا تمنح ترخيص autoplay في المتصفح — استخدم نقرات agent-browser الحقيقية لفحص الصوت.
-- عنصر `<audio>` غير ملحق بالـ DOM — الفحص عبر `window.__hudaAudio` (dev فقط) أو نص المشغل المصغّر؛ انتبه: بطاقة «آخر قراءة» تحتوي نصًا مشابهًا — حدد زر المشغل بـ `closest('div.fixed')`.
-- عامل أخضر معروف: أنماط `lastIndexOf` في parseAyahKey تدعم معرفات مقرئين تحوي «:».
+- **Playwright جاهز محليًا**: chromium-1200 في `~/.cache/ms-playwright` مع `@playwright/test@1.57.0` — شغّله عبر `./node_modules/.bin/playwright test` (Node 24 متوفر) لا `bunx playwright`.
+- عنصر `<audio>` غير ملحق بالـ DOM — الفحص عبر `window.__hudaAudio` (dev فقط)؛ درج vaul يضع `aria-hidden` على الخلفية — أغلقه بـ Escape قبل أي تفاعل لاحق.

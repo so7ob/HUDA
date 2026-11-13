@@ -156,3 +156,44 @@
 - حالة النشر: **«منشور على main غير منشور-إنتاجياً»** — النشر الإنتاجي غير مفعّل (لا خادم/أسرار — Issue #17) وفق الوثائق
 - Issue **#9 مغلق** بتعليق أدلة: https://github.com/so7ob/HUDA/issues/9 (شرط القبول offline مثبت بالمتصفح)
 - مزامنة ما بعد الإصدار: هذا الـ PR نفسه (develop ← main)
+
+---
+
+## الدورة 5 — Issue #10: اختبارات E2E آلية للمسارات الحرجة
+
+**الفرع:** `test/e2e-critical` (من أحدث origin/develop بعد PR مزامنة #21) — **PR: https://github.com/so7ob/HUDA/pull/22**
+
+### ما نُفّذ فعليًا
+
+| الملف | الوظيفة |
+|---|---|
+| `playwright.config.ts` | خادم Next dev مستقل على :3105 عبر `webServer` (انتظار `/api/health`)، workers=1 متسلسل، trace/screenshot عند الفشل، إعادة محاولة في CI فقط |
+| `tests/e2e/seed-e2e.ts` (بـ bun) | بناء `db/e2e.db` من نسخة المحتوى المرجعي `db/custom.db` (114 سورة، 6236 آية، 6 مقرئين، كتب) + تصفير بيانات الاستخدام الشخصية + ضبط كلمة مرور المدير بقيمة E2E معلومة (scrypt مطابق لـ `hashPassword`) |
+| `tests/e2e/global-setup.ts` | يستدعي البذرة بـ bun قبل إقلاع الخادم في كل تشغيل |
+| `tests/e2e/helpers.ts` | محددات user-facing (أدوار/أسماء) + فتح سور عبر ترتيب الفهرس الثابت + اعتراض CDN التلاوة وتغذية WAV مُصنَّع برمجيًا (صفر طلبات خارجية) |
+| `tests/e2e/reading.spec.ts` | 4 اختبارات: فهرس 114 سورة، فتح الفاتحة وعرض آياتها، تبديل قائمة↔مصحف، حفظ آخر قراءة واستعادتها بعد إعادة تحميل كاملة |
+| `tests/e2e/search.spec.ts` | 3 اختبارات: نتائج مجمعة، حالة «لا توجد نتائج»، فتح نتيجة يفتح القارئ |
+| `tests/e2e/favorites.spec.ts` | اختباران: إضافة→استمرارية عبر إعادة تحميل كاملة→إزالة من الدرج؛ إزالة من الشاشة وتحديث العدّاد |
+| `tests/e2e/admin-auth.spec.ts` | 3 اختبارات: دخول صحيح وخروج، رفض كلمة مرور خاطئة، قفل حدّ المحاولات (5 فاشلة/15 د) |
+| `tests/e2e/recitation.spec.ts` | اختباران: تشغيل السورة والآية المفردة — إثبات صوت فعلي عبر `window.__hudaAudio` (زمن يتقدم) + المشغّل المصغّر |
+| `bunfig.toml` | `[test].root = ./tests/unit` — عزل اكتشاف bun test عن مواصفات Playwright |
+| `package.json` | سكربتا `test:e2e` و`test:e2e:headed` (Playwright عبر Node — لا bun runtime) |
+| `.github/workflows/ci.yml` | job إلزامي جديد `e2e-critical-paths`: chromium `--with-deps` + `bun run test:e2e` + رفع الآثار عند الفشل (7 أيام) |
+| `docs/development/e2e-tests.md` | دليل تشغيل + جدول العزل + الدروس المستخلصة الستة |
+
+### الدروس المستخلصة (موثقة لمنع تكرارها)
+1. أسماء السور بالرسم العثماني («ٱلْفَاتِحَةِ») — المطابقة النصية العادية تفشل؛ اعتماد ترتيب الفهرس الثابت وبنية الأدوار.
+2. درج vaul يبقى مفتوحًا بعد الإضافة ويضع `aria-hidden` على كل ما خلفه — يجب Escape قبل «رجوع».
+3. الزر العائم للتلاوة يختفي عند ظهور المشغّل المصغّر (`player.visible`).
+4. نقرات Playwright حقيقية تمنح إذن autoplay.
+5. `DATABASE_URL=file:../db/e2e.db` يُحل نسبةً إلى `prisma/` — الملف الفعلي `db/e2e.db` بجذر المشروع.
+6. Playwright 1.57 (chromium 1200) يعمل عبر Node محليًا — `bunx playwright` قد يستدعي bun runtime.
+
+### الإثبات
+- **محليًا:** `playwright test` — **14/14 أخضر مرتين متتاليتين** (حتمية، ~1.3 د لكل تشغيل) + `bun test` 37/37 + `tsc --noEmit` نظيف + `eslint` نظيف
+- **CI على PR #22 إلى develop:** `quality-gates` ✓ **و`e2e-critical-paths` ✓** (أول تشغيل E2E أخضر على GitHub Actions: https://github.com/so7ob/HUDA/pull/22)
+- **الإصدار:** Release PR **#23** (SemVer 0.4.0→0.5.0) — `version-check` ✓ + `release-gates` ✓ — مدمج → **main = `65ac110`** — Tag + GitHub Release: https://github.com/so7ob/HUDA/releases/tag/v0.5.0
+- **Issue #10** أُغلق بتعليق أدلة: https://github.com/so7ob/HUDA/issues/10#issuecomment-6841697060
+
+### مزامنة ما بعد الإصدار (هذه الدورة)
+- **PR المزامنة:** `chore/sync-develop-v0.5.0` من main → develop (بما فيها سجلات الدورة 5 هذه) — يُستكمل رقم PR والنتيجة بعد الدمج
