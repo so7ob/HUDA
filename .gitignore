@@ -69,3 +69,8 @@ db/*.db-shm
 tool-results/
 agent-ctx/
 .zscripts/
+# E2E (Playwright) — قاعدة اختبار معزولة ونتائج التشغيل (قابلة لإعادة التوليد)
+db/e2e.db
+db/e2e.db-journal
+test-results/
+playwright-report/

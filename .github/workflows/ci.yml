@@ -51,3 +51,42 @@ jobs:
         run: |
           test -f .next/standalone/server.js
           echo "standalone server.js present"
+
+  e2e-critical-paths:
+    name: e2e-critical-paths
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:../db/e2e.db
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Setup Node (Playwright runtime)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies (frozen lockfile)
+        run: bun install --frozen-lockfile
+
+      - name: Prisma generate
+        run: bunx prisma generate
+
+      - name: Install Playwright chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: E2E critical paths
+        run: bun run test:e2e
+
+      - name: Upload E2E artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
