@@ -1,0 +1,6 @@
+# إعداد اختبارات bun — اكتشاف اختبارات الوحدة فقط
+# اختبارات E2E (Playwright) في tests/e2e تُدار عبر `playwright test` — لا يجوز لـ bun test التقاطها
+# لأن استيراد @playwright/test تحت مشغّل bun test غير مدعوم.
+# المرجع: bunfig.toml [test].root — الجذر النسبي لاكتشاف ملفات الاختبار.
+[test]
+root = "./tests/unit"
